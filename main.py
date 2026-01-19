@@ -12,8 +12,8 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION')
 CHAT_ALVO = os.environ.get('TELEGRAM_CHAT_ID') # Pode ser o @username ou ID numérico (-100...)
 
 # Horário ALVO (Ajuste para o dia da competição)
-HORA_ALVO = 20
-MINUTO_ALVO = 30
+HORA_ALVO = 17
+MINUTO_ALVO = 50
 
 async def sniper():
     # Conecta usando a sessão salva (sem pedir código)
@@ -22,7 +22,7 @@ async def sniper():
 
     if not await client.is_user_authorized():
         print("❌ Erro de Login! A Session String pode estar inválida.")
-        return
+        returnss
 
     me = await client.get_me()
     print(f"✅ Logado como: {me.first_name} (@{me.username})")
@@ -52,7 +52,7 @@ async def sniper():
     tempo_limite = alvo + datetime.timedelta(minutes=2) # Tenta por 2 minutos max
 
     # Mensagem que garante a vaga
-    MENSAGEM = "Kaique [Coloque seu nome completo aqui]"
+    MENSAGEM = "Kaique [preso fulano raio 1]"
 
     while not enviado and datetime.datetime.now() < tempo_limite:
         try:
