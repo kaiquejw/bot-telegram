@@ -13,7 +13,7 @@ CHAT_ALVO = os.environ.get('TELEGRAM_CHAT_ID') # Pode ser o @username ou ID num�
 
 # Horário ALVO (Ajuste para o dia da competição)
 HORA_ALVO = 17
-MINUTO_ALVO = 50
+MINUTO_ALVO = 53
 
 async def sniper():
     # Conecta usando a sessão salva (sem pedir código)
