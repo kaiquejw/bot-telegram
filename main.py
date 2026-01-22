@@ -28,7 +28,7 @@ CONTAS = [
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
 HORA_ALVO = 17
-MINUTO_ALVO = 47
+MINUTO_ALVO = 53
 
 async def sniper_individual(conta, alvo):
     """Função que controla UMA conta específica"""
