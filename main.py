@@ -24,7 +24,7 @@ except TypeError:
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
 HORA_ALVO = 13  # Exemplo: 20 horas
-MINUTO_ALVO = 10 # Exemplo: 30 minutos
+MINUTO_ALVO = 15 # Exemplo: 30 minutos
 
 async def sniper():
     # Conecta usando a sessão salva
@@ -68,7 +68,7 @@ async def sniper():
     tempo_limite = alvo + datetime.timedelta(minutes=2) 
 
     # SUA MENSAGEM AQUI
-    MENSAGEM = "Kaique [Coloque seu Sobrenome aqui]"
+    MENSAGEM = "Kaique [preso andre raio 5]"
 
     while not enviado and datetime.datetime.now() < tempo_limite:
         try:
