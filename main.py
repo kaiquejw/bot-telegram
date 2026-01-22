@@ -9,15 +9,22 @@ from telethon.errors import ChatWriteForbiddenError, FloodWaitError
 API_ID = int(os.environ.get('TELEGRAM_API_ID'))
 API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION')
-CHAT_ALVO = os.environ.get('TELEGRAM_CHAT_ID') # Pode ser o @username ou ID numérico (-100...)
+# --- IMPORTANTE: Copie TODAS as linhas abaixo ---
+raw_chat_id = os.environ.get('TELEGRAM_CHAT_ID')  # <--- ESSA LINHA É OBRIGATÓRIA
+
 try:
     CHAT_ALVO = int(raw_chat_id) # Tenta converter para número
 except ValueError:
-    CHAT_ALVO = raw_chat_id # Se não der (for @username), usa como texto
+    CHAT_ALVO = raw_chat_id # Se der erro, usa como texto (username)
+except TypeError:
+    print("ERRO: O ID do chat não foi encontrado nas variáveis de ambiente!")
+    CHAT_ALVO = 0 
+# ------------------------------------------------
+
 
 # Horário ALVO (Ajuste para o dia da competição)
 HORA_ALVO = 12
-MINUTO_ALVO = 50
+MINUTO_ALVO = 55
 
 async def sniper():
     # Conecta usando a sessão salva (sem pedir código)
