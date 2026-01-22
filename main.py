@@ -28,7 +28,7 @@ CONTAS = [
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
 HORA_ALVO = 17
-MINUTO_ALVO = 35
+MINUTO_ALVO = 47
 
 async def sniper_individual(conta, alvo):
     """Função que controla UMA conta específica"""
@@ -49,6 +49,12 @@ async def sniper_individual(conta, alvo):
 
     try:
         await client.connect()
+        
+        # --- ADICIONE ESTA LINHA AQUI EMBAIXO ---
+        # Isso força o robô a atualizar a lista de grupos e "encontrar" o ID
+        await client.get_dialogs()  
+        # ----------------------------------------
+
         if not await client.is_user_authorized():
             print(f"❌ {conta['nome']}: Falha no Login (Sessão inválida).")
             return
