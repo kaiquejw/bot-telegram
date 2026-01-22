@@ -1,103 +1,111 @@
 import asyncio
 import os
 import datetime
-from telethon import TelegramClient, events
+from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.errors import ChatWriteForbiddenError, FloodWaitError
 
-# --- CONFIGURAÇÕES VIA SECRETS ---
+# --- CONFIGURAÇÕES GERAIS ---
 API_ID = int(os.environ.get('TELEGRAM_API_ID'))
 API_HASH = os.environ.get('TELEGRAM_API_HASH')
-SESSION_STRING = os.environ.get('TELEGRAM_SESSION')
 
-# --- TRATAMENTO DO ID DO CHAT ---
-raw_chat_id = os.environ.get('TELEGRAM_CHAT_ID')
-
-try:
-    CHAT_ALVO = int(raw_chat_id) # Tenta converter para número
-except ValueError:
-    CHAT_ALVO = raw_chat_id # Se der erro, usa como texto (username)
-except TypeError:
-    print("ERRO: O ID do chat não foi encontrado nas variáveis de ambiente!")
-    CHAT_ALVO = 0 
-# ------------------------------------------------
+# --- LISTA DE ATIRADORES (EXÉRCITO) ---
+# Agora cada conta tem seu próprio 'chat_id' e 'msg'
+CONTAS = [
+    {
+        "nome": "Kaique",
+        "secret_name": "TELEGRAM_SESSION",
+        "chat_id": -4801139096,  # <--- COLOQUE O ID DO GRUPO DO KAIQUE AQUI (Número Inteiro)
+        "msg": "Kaique fabio andre raio 3"
+    },
+    {
+        "nome": "Jaqueline", 
+        "secret_name": "SESSION_JAQUELINE",
+        "chat_id": -4801139096,  # <--- COLOQUE O ID DO GRUPO DA JAQUELINE AQUI
+        "msg": "Jaqueline x Daniel raio 3"
+    }
+]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
-HORA_ALVO = 14  # Exemplo: 20 horas
-MINUTO_ALVO = 32 # Exemplo: 30 minutos
+HORA_ALVO = 17
+MINUTO_ALVO = 35
 
-async def sniper():
-    # Conecta usando a sessão salva
-    client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
-    await client.connect()
+async def sniper_individual(conta, alvo):
+    """Função que controla UMA conta específica"""
+    
+    session_str = os.environ.get(conta['secret_name'])
+    
+    if not session_str:
+        print(f"⚠️ Pulei {conta['nome']}: Segredo '{conta['secret_name']}' não encontrado.")
+        return
 
-    if not await client.is_user_authorized():
-        print("❌ Erro de Login! A Session String pode estar inválida.")
-        return # <--- CORRIGIDO (estava returnss)
+    client = TelegramClient(StringSession(session_str), API_ID, API_HASH)
+    
+    # Valida se o chat_id foi preenchido
+    chat_alvo_especifico = conta.get('chat_id')
+    if not chat_alvo_especifico:
+        print(f"❌ {conta['nome']} não tem ID de chat configurado!")
+        return
 
-    me = await client.get_me()
-    print(f"✅ Logado como: {me.first_name} (@{me.username})")
+    try:
+        await client.connect()
+        if not await client.is_user_authorized():
+            print(f"❌ {conta['nome']}: Falha no Login (Sessão inválida).")
+            return
 
-    # Define o horário alvo para HOJE
+        print(f"✅ {conta['nome']} logado e pronto para o alvo {chat_alvo_especifico}!")
+
+        # --- FASE 1: ESPERA SINCRONIZADA ---
+        while (alvo - datetime.datetime.now()).total_seconds() > 5:
+            await asyncio.sleep(1)
+
+        # --- FASE 2: ATAQUE ---
+        enviado = False
+        tempo_limite = alvo + datetime.timedelta(minutes=2)
+        
+        while not enviado and datetime.datetime.now() < tempo_limite:
+            try:
+                # Usa o chat_id específico desta conta
+                await client.send_message(chat_alvo_especifico, conta['msg'])
+                enviado = True
+                print(f"🏆 {conta['nome']} -> ENVIOU! ({datetime.datetime.now().strftime('%H:%M:%S.%f')})")
+                
+            except ChatWriteForbiddenError:
+                await asyncio.sleep(0.2) 
+            except FloodWaitError as e:
+                print(f"🛑 {conta['nome']} FloodWait: {e.seconds}s")
+                await asyncio.sleep(e.seconds)
+            except Exception as e:
+                print(f"⚠️ {conta['nome']} erro: {e}")
+                await asyncio.sleep(0.5)
+
+    except Exception as e:
+        print(f"❌ Erro fatal na conta {conta['nome']}: {e}")
+    finally:
+        await client.disconnect()
+
+async def main():
     agora = datetime.datetime.now()
     alvo = agora.replace(hour=HORA_ALVO, minute=MINUTO_ALVO, second=0, microsecond=0)
     
-    # Validação simples
-    if alvo < agora:
-         print("⚠️ O horário alvo já passou hoje. (Se for teste, ignore).")
+    print(f"🔥 INICIANDO SNIPER MULTIPLO ({len(CONTAS)} contas)")
+    print(f"🎯 Alvo: {alvo.strftime('%H:%M:%S')}")
 
-    print(f"🎯 Alvo definido para: {alvo.strftime('%H:%M:%S')}")
-    
-    # --- FASE 1: ESPERA INTELIGENTE ---
-    # Agora ele espera até faltarem apenas 5 SEGUNDOS
-    while (alvo - datetime.datetime.now()).total_seconds() > 5:
+    while (alvo - datetime.datetime.now()).total_seconds() > 30:
         restante = int((alvo - datetime.datetime.now()).total_seconds())
-        
-        # Mostra aviso a cada 10s para não poluir, ou se faltar pouco tempo
-        if restante % 10 == 0 or restante < 10:
+        if restante % 30 == 0:
             print(f"💤 Aguardando... Falta {restante}s")
-        
-        # Dorme pouco para ter precisão
         await asyncio.sleep(1)
 
-    print("🚨 MODO ATAQUE ATIVADO! (Faltam < 5s) 🚨")
-
-    # --- FASE 2: ATAQUE (Burst Mode) ---
-    enviado = False
-    tentativa = 0
-    tempo_limite = alvo + datetime.timedelta(minutes=2) 
-
-    # SUA MENSAGEM AQUI
-    MENSAGEM = "Kaique [preso andre raio 5]"
-
-    while not enviado and datetime.datetime.now() < tempo_limite:
-        try:
-            tentativa += 1
-            await client.send_message(CHAT_ALVO, MENSAGEM)
-            
-            enviado = True
-            print(f"🏆 SUCESSO! Mensagem enviada na tentativa {tentativa} às {datetime.datetime.now().strftime('%H:%M:%S.%f')}")
-            
-        except ChatWriteForbiddenError:
-            # Grupo fechado.
-            # print apenas para debug, não precisa poluir o log na hora H
-            # print(f"🔒 Bloqueado. Tentando...") 
-            await asyncio.sleep(0.25) # 4 tentativas por segundo (Ritmo seguro)
-            
-        except FloodWaitError as e:
-            print(f"🛑 FloodWait de {e.seconds} segundos.")
-            await asyncio.sleep(e.seconds)
-            
-        except Exception as e:
-            print(f"⚠️ Erro: {e}")
-            await asyncio.sleep(0.5)
-
-    if not enviado:
-        print("❌ Tempo esgotado.")
-
-    await client.disconnect()
+    print("⚔️ PREPARANDO ATAQUE SIMULTÂNEO... (Faltam < 30s)")
+    
+    tarefas = []
+    for conta in CONTAS:
+        tarefas.append(sniper_individual(conta, alvo))
+    
+    await asyncio.gather(*tarefas)
 
 if __name__ == '__main__':
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    loop.run_until_complete(sniper())
+    loop.run_until_complete(main())
