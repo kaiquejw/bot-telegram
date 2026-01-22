@@ -21,14 +21,14 @@ CONTAS = [
     {
         "nome": "Jaqueline", 
         "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -4801139096,  # <--- COLOQUE O ID DO GRUPO DA JAQUELINE AQUI
+        "chat_id": -1002704903786,  # <--- COLOQUE O ID DO GRUPO DA JAQUELINE AQUI
         "msg": "Jaqueline x Daniel raio 3"
     }
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
-HORA_ALVO = 17
-MINUTO_ALVO = 53
+HORA_ALVO = 20
+MINUTO_ALVO = 30
 
 async def sniper_individual(conta, alvo):
     """Função que controla UMA conta específica"""
