@@ -24,7 +24,7 @@ except TypeError:
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
 HORA_ALVO = 14  # Exemplo: 20 horas
-MINUTO_ALVO = 25 # Exemplo: 30 minutos
+MINUTO_ALVO = 32 # Exemplo: 30 minutos
 
 async def sniper():
     # Conecta usando a sessão salva
