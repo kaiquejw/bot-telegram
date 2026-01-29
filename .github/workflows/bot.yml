@@ -36,6 +36,7 @@ jobs:
           TELEGRAM_SESSION: ${{ secrets.TELEGRAM_SESSION }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SESSION_JAQUELINE: ${{ secrets.SESSION_JAQUELINE }}
+          SESSION_LARISSA: ${{ secrets.SESSION_LARISSA }}
         run: |
           # Define fuso horário de SP para o Python saber a hora certa
           export TZ="America/Sao_Paulo"
