@@ -15,7 +15,7 @@ CONTAS = [
     {
         "nome": "Jaqueline", 
         "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -1002704903786,  
+        "chat_id": -4801139096,  
         "msg": "Jaqueline x Daniel raio 3"
     },
     {
@@ -27,8 +27,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
-HORA_ALVO = 21
-MINUTO_ALVO = 29
+HORA_ALVO = 22
+MINUTO_ALVO = 46
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
@@ -43,7 +43,7 @@ async def sniper_individual(conta, alvo):
 
     try:
         await client.connect()
-        # Força atualização dos diálogos para garantir que encontra o ID
+        # Força atualização dos diálogos para garantir que encontra o ID -1002704903786
         await client.get_dialogs()
         
         if not await client.is_user_authorized():
