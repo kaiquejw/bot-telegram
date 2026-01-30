@@ -25,18 +25,18 @@ CONTAS = [
         "chat_id": -5296287589,  
         "msg": "Bianca x Imperador raio 3"
     },
-
-    {
-        "nome": "Kaique",
-        "secret_name": "TELEGRAM_SESSION",
-        "chat_id": -5296287589,  
-        "msg": "Kaique fabio andre raio 3"
-    }
+# --- KAIQUE ESTÁ DESLIGADO (COMENTADO) ---
+#   {
+#       "nome": "Kaique",
+#        "secret_name": "TELEGRAM_SESSION",
+#        "chat_id": -5296287589,  
+#        "msg": "Kaique fabio andre raio 3"
+#    }
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
 HORA_ALVO = 18
-MINUTO_ALVO = 00
+MINUTO_ALVO = 20
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
