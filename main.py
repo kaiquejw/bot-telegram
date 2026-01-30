@@ -15,28 +15,28 @@ CONTAS = [
     {
         "nome": "Jaqueline", 
         "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -1002704903786,  
+        "chat_id": -5296287589,  
         "msg": "Jaqueline x Daniel raio 3"
     },
 
 {
         "nome": "Larissa",
         "secret_name": "SESSION_LARISSA",
-        "chat_id": -1002704903786,  
+        "chat_id": -5296287589,  
         "msg": "Bianca x Imperador raio 3"
     },
 # --- KAIQUE ESTÁ DESLIGADO (COMENTADO) ---
-#   {
-#       "nome": "Kaique",
-#        "secret_name": "TELEGRAM_SESSION",
-#        "chat_id": -5296287589,  
-#        "msg": "Kaique fabio andre raio 3"
-#    }
+   {
+       "nome": "Kaique",
+        "secret_name": "TELEGRAM_SESSION",
+        "chat_id": -5296287589,  
+        "msg": "Kaique fabio andre raio 3"
+    }
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA COMPETIÇÃO ⚠️
-HORA_ALVO = 20
-MINUTO_ALVO = 30
+HORA_ALVO = 21
+MINUTO_ALVO = 47
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
@@ -84,8 +84,8 @@ async def sniper_individual(conta, alvo):
             # ⚠️ MUDANÇA 2: ESPERA INTELIGENTE ⚠️
             # Se faltar mais de 2 segundos, dorme um pouco.
             # Isso evita que o robô tome FloodWait por tentar cedo demais.
-            if diferenca > 1:
-                await asyncio.sleep(0.1)
+            if diferenca > 0.7:
+                await asyncio.sleep(0.01)
                 continue
 
             # --- ZONA DE GUERRA (Faltam < 2 segundos ou já passou) ---
@@ -103,7 +103,7 @@ async def sniper_individual(conta, alvo):
                 tentativa += 1
                 # Dorme APENAS 0.05s (50ms). Antes era 0.2s (200ms).
                 # Isso faz ele tentar 4x mais rápido.
-                await asyncio.sleep(0.05) 
+                await asyncio.sleep(0.035) 
                 
             except FloodWaitError as e:
                 print(f"🛑 {conta['nome']} FloodWait: {e.seconds}s (Esperando...)")
