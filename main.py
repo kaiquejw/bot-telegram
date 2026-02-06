@@ -12,34 +12,34 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 # --- LISTA DE ATIRADORES (EXÉRCITO) ---
 # ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
 CONTAS = [
-    {
-        "nome": "Jaqueline", 
-        "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -1002704903786,  
-        "msg": "Jaqueline x Daniel raio 3"
-    },
+    #{
+     #   "nome": "Jaqueline", 
+    #    "secret_name": "SESSION_JAQUELINE",
+    #    "chat_id": -1002704903786,  
+   #     "msg": "Jaqueline x Daniel raio 3"
+  #  },
 
-{
-        "nome": "Larissa",
-        "secret_name": "SESSION_LARISSA",
-        "chat_id": -1002704903786,  
-        "msg": "Bianca x Imperador raio 3"
-    },
-
-{
-        "nome": "Priscila",
-        "secret_name": "SESSION_PRISCILA",
-        "chat_id": -1002704903786,  
-        "msg": "Priscila x Andre felipe raio 4"
-    },
-
-
- #{
- #       "nome": "Katia",
-#        "secret_name": "SESSION_KATIA",
- #       "chat_id": -1003049291964,  
- #       "msg": "Katia x Pantanal raio 2 Laudo"
+#{
+ #       "nome": "Larissa",
+ #       "secret_name": "SESSION_LARISSA",
+ #       "chat_id": -1002704903786,  
+ #       "msg": "Bianca x Imperador raio 3"
  #   },
+
+#{
+#        "nome": "Priscila",
+#        "secret_name": "SESSION_PRISCILA",
+#        "chat_id": -1002704903786,  
+#        "msg": "Priscila x Andre felipe raio 4"
+#    },
+
+
+ {
+        "nome": "Katia",
+        "secret_name": "SESSION_KATIA",
+        "chat_id": -1003049291964,  
+        "msg": "Katia x Pantanal raio 2 Laudo"
+    },
 
 # --- KAIQUE ESTÁ DESLIGADO ---
 #   {
@@ -52,7 +52,7 @@ CONTAS = [
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
 HORA_ALVO = 20
-MINUTO_ALVO = 30
+MINUTO_ALVO = 45
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
