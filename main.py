@@ -15,7 +15,7 @@ CONTAS = [
     {
         "nome": "Jaqueline", 
         "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -1002704903786,  
+        "chat_id": -5296287589,  
         "msg": "Jaqueline x Daniel raio 3"
     },
 
@@ -23,50 +23,38 @@ CONTAS = [
     {
         "nome": "Yasmin", 
         "secret_name": "SESSION_YASMIN",
-        "chat_id": -1003790831664,  
+        "chat_id": -4801139096,  
         "msg": "My x Meia R6"
     },
 
     {
         "nome": "Monica", 
         "secret_name": "SESSION_MONICA",
-        "chat_id": -1003790831664,  
+        "chat_id": -4801139096,  
         "msg": "Monica x Jaçana R6"
     },
 
     {
         "nome": "Ana", 
         "secret_name": "SESSION_ANA",
-        "chat_id": -1002443109385,
+        "chat_id": -5122421579,
         "msg": "Ana x Eduardo R4"
     },
 
     {
         "nome": "Juliane", 
         "secret_name": "SESSION_JULIANE",
-        "chat_id": -1002704903786,  
+        "chat_id": -5296287589,  
         "msg": "Julia x guarujá R4"
     },
 
-    {
-        "nome": "", 
-        "secret_name": "SESSION_",
-        "chat_id": -,  
-        "msg": ""
-    },
-
-
-
-
-
-
- #{
-  #      "nome": "Katia",
+ {
+        "nome": "Katia",
   
-  #      "secret_name": "SESSION_KATIA",
-  #      "chat_id": -1003049291964,  
-  #      "msg": "Katia x Pantanal raio 2 Laudo"
-   # },
+        "secret_name": "SESSION_KATIA",
+        "chat_id": -5296287589,  
+        "msg": "Katia x Pantanal raio 2 Laudo"
+    },
 
 # --- KAIQUE ESTÁ DESLIGADO ---
 #   {
@@ -78,8 +66,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 20
-MINUTO_ALVO = 45
+HORA_ALVO = 14
+MINUTO_ALVO = 5
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
