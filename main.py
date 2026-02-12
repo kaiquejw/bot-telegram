@@ -15,36 +15,40 @@ CONTAS = [
     {
         "nome": "Jaqueline", 
         "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -5296287589,  
+        "chat_id": -1002704903786,  
         "msg": "Jaqueline x Daniel raio 3"
     },
 
-
+#      20h
     {
         "nome": "Yasmin", 
         "secret_name": "SESSION_YASMIN",
-        "chat_id": -4801139096,  
+        "chat_id": -1003790831664,  
         "msg": "My x Meia R6"
     },
 
+#      20h
     {
         "nome": "Monica", 
         "secret_name": "SESSION_MONICA",
-        "chat_id": -4801139096,  
+        "chat_id": -1003790831664,  
         "msg": "Monica x Jaçana R6"
     },
 
+
+
+#      20h
     {
         "nome": "Ana", 
         "secret_name": "SESSION_ANA",
-        "chat_id": -5122421579,
+        "chat_id": -1002443109385,
         "msg": "Ana x Eduardo R4"
     },
 
     {
         "nome": "Juliane", 
         "secret_name": "SESSION_JULIANE",
-        "chat_id": -5296287589,  
+        "chat_id": -1002704903786,  
         "msg": "Julia x guarujá R4"
     },
 
@@ -52,17 +56,9 @@ CONTAS = [
         "nome": "Katia",
   
         "secret_name": "SESSION_KATIA",
-        "chat_id": -5296287589,  
+        "chat_id": -1003010614751,  
         "msg": "Katia x Pantanal raio 2 Laudo"
     },
-
-# --- KAIQUE ESTÁ DESLIGADO ---
-#   {
-#       "nome": "Kaique",
-#        "secret_name": "TELEGRAM_SESSION",
-#        "chat_id": -5296287589,  
-#        "msg": "Kaique fabio andre raio 3"
-#    }
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
