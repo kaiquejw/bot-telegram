@@ -23,7 +23,7 @@ CONTAS = [
     {
         "nome": "Yasmin", 
         "secret_name": "SESSION_YASMIN",
-        "chat_id": -4801139096,  
+        "chat_id": -1003790831664,  
         "msg": "My x Meia R6"
     },
 
@@ -31,7 +31,7 @@ CONTAS = [
     {
         "nome": "Monica", 
         "secret_name": "SESSION_MONICA",
-        "chat_id": -4801139096,  
+        "chat_id": -1003790831664,  
         "msg": "Monica x Jaçana R6"
     },
 
@@ -52,7 +52,7 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 19
+HORA_ALVO = 20
 MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
