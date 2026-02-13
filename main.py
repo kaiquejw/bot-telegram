@@ -12,12 +12,12 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 # --- LISTA DE ATIRADORES (EXÉRCITO) ---
 # ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
 CONTAS = [
-    {
-        "nome": "Jaqueline", 
-        "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -5296287589,  
-        "msg": "Jaqueline x Daniel raio 3"
-    },
+#    {
+#        "nome": "Jaqueline", 
+####        "secret_name": "SESSION_JAQUELINE",
+#        "chat_id": -1002704903786,  
+#        "msg": "Jaqueline x Daniel raio 3"
+#    },
 
 #      20h
     {
@@ -35,25 +35,25 @@ CONTAS = [
         "msg": "Monica x Jaçana R6"
     },
 
-    {
-        "nome": "Juliane", 
-        "secret_name": "SESSION_JULIANE",
-        "chat_id": -5296287589,  
-        "msg": "Julia x guarujá R4"
-    },
+#    {
+#        "nome": "Juliane", 
+#        "secret_name": "SESSION_JULIANE",
+#        "chat_id": -1002704903786, 
+#        "msg": "Julia x guarujá R4"
+#    },
 
- {
-        "nome": "Katia",
-  
-        "secret_name": "SESSION_KATIA",
-        "chat_id": -5296287589,  
-        "msg": "Katia x Pantanal raio 2 Laudo"
-    },
+ #{
+  #      "nome": "Katia",
+ # 
+  #      "secret_name": "SESSION_KATIA",
+  ###      "chat_id": -1003010614751,  
+  #      "msg": "Katia x Pantanal raio 2 Laudo"
+#    },
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 18
-MINUTO_ALVO = 20
+HORA_ALVO = 19
+MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
