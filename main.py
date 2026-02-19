@@ -14,7 +14,7 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 CONTAS = [
 
  {
-      "nome": "sara",
+      "nome": "luciana",
   
         "secret_name": "SESSION_LUCIANA",
         "chat_id": -5185709781,  
