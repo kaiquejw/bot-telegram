@@ -42,6 +42,7 @@ jobs:
           SESSION_MONICA: ${{ secrets.SESSION_MONICA }}
           SESSION_JULIANE: ${{ secrets.SESSION_JULIANE }}
           SESSION_SARA: ${{ secrets.SESSION_SARA }}
+          SESSION_LUCIANA: ${{ secrets.SESSION_LUCIANA }}
         run: |
           # Define fuso horário de SP para o Python saber a hora certa
           export TZ="America/Sao_Paulo"
