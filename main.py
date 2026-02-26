@@ -22,13 +22,18 @@ CONTAS = [
     },
 
 
-
+{
+        "nome": "ana", 
+        "secret_name": "SESSION_ANA",
+        "chat_id": -5159894720,
+        "msg": "Ana x eduardo raio 4"
+    },
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
 HORA_ALVO = 11
-MINUTO_ALVO = 30
+MINUTO_ALVO = 40
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
