@@ -13,27 +13,35 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 # ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
 CONTAS = [
 
+#      20h30
+# {
+ #       "nome": "janaine",
+  #      "secret_name": "SESSION_JANAINE",
+  #      "chat_id": -5149631235,  
+ #       "msg": "Janaine x gigio raio 2"
+ #   },
 
- {
-        "nome": "janaine",
-        "secret_name": "SESSION_JANAINE",
-        "chat_id": -5149631235,  
-        "msg": "Janaine x gigio raio 2"
-    },
+#      20h
+#{
+   #     "nome": "ana", 
+   #     "secret_name": "SESSION_ANA",
+   #     "chat_id": -5159894720,
+   #     "msg": "Ana x eduardo raio 4"
+  #  },
 
-
-{
-        "nome": "ana", 
-        "secret_name": "SESSION_ANA",
-        "chat_id": -5159894720,
-        "msg": "Ana x eduardo raio 4"
+#      20h45
+    {
+        "nome": "jaqueline", 
+        "secret_name": "SESSION_JAQUELINE",
+        "chat_id": -1003249707202,
+        "msg": "Jaqueline x daniel raio 3"
     },
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
 HORA_ALVO = 11
-MINUTO_ALVO = 40
+MINUTO_ALVO = 58
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
