@@ -31,6 +31,13 @@ CONTAS = [
         "msg": "Ana x eduardo raio 4"
     },
 
+    {
+        "nome": "Eloisa",
+        "secret_name": "SESSION_ELOISA",
+        "chat_id": -5213527883,  
+        "msg": "Eloisa do verde raio 1"
+    },
+
   #      21h00
     {
         "nome": "katia", 
@@ -46,12 +53,7 @@ CONTAS = [
         "msg": "Rose Lk R 3"
     },
 
-    {
-        "nome": "Eloisa",
-        "secret_name": "SESSION_ELOISA",
-        "chat_id": -5227729781,  
-        "msg": "Eloisa Lk R 3"
-    },
+   
 
 
 
