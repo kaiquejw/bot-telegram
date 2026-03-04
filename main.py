@@ -13,21 +13,23 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 # ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
 CONTAS = [
 
+
+#      19h00
+   {
+        "nome": "Mih", 
+        "secret_name": "SESSION_KATIA",
+        "chat_id": -5143728488,
+        "msg": "Mih x Ostini R3"
+    },
 #      20h30
-# {
- #       "nome": "janaine",
- #       "secret_name": "SESSION_JANAINE",
- #       "chat_id": -1002704903786,  
- #       "msg": "Janaine x gigio raio 2"
- #   },
 
 #      20h
-#{
- #       "nome": "ana", 
-  #      "secret_name": "SESSION_ANA",
-   #     "chat_id": -1002443109385,
-    #    "msg": "Ana x eduardo raio 4"
-    #},
+{
+        "nome": "ana", 
+        "secret_name": "SESSION_ANA",
+        "chat_id": -5159894720,
+        "msg": "Ana x eduardo raio 4"
+    },
 
   #      21h00
     {
@@ -35,6 +37,13 @@ CONTAS = [
         "secret_name": "SESSION_KATIA",
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo"
+    },
+ 
+     {
+        "nome": "Rose",
+        "secret_name": "SESSION_ROSE",
+        "chat_id": -5227729781,  
+        "msg": "Rose Lk R 3"
     },
 
 ]
