@@ -14,21 +14,15 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 CONTAS = [
 
 
-#      19h00
-   {
-        "nome": "Mih", 
-        "secret_name": "SESSION_MIH",
-        "chat_id": -1002742703600,
-        "msg": "Mih x Ostini R3"
-    },
+
 
 #      20h
-#{
-  #      "nome": "ana", 
-  #      "secret_name": "SESSION_ANA",
-  #      "chat_id": -1002443109385,
-  #      "msg": "Ana x eduardo raio 4"
-  #  },
+{
+        "nome": "ana", 
+        "secret_name": "SESSION_ANA",
+        "chat_id": -1002443109385,
+        "msg": "Ana x eduardo raio 4"
+    },
 
     #      20h30
   #  {
@@ -50,7 +44,7 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 19
+HORA_ALVO = 20
 MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
