@@ -35,20 +35,9 @@ jobs:
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           SESSION_JAQUELINE: ${{ secrets.SESSION_JAQUELINE }}
-          SESSION_LARISSA: ${{ secrets.SESSION_LARISSA }}
-          SESSION_KATIA: ${{ secrets.SESSION_KATIA }}
-          SESSION_PRISCILA: ${{ secrets.SESSION_PRISCILA }}
-          SESSION_YASMIN: ${{ secrets.SESSION_YASMIN }}
-          SESSION_MONICA: ${{ secrets.SESSION_MONICA }}
-          SESSION_JULIANE: ${{ secrets.SESSION_JULIANE }}
-          SESSION_SARA: ${{ secrets.SESSION_SARA }}
-          SESSION_LUCIANA: ${{ secrets.SESSION_LUCIANA }}
-          SESSION_JANAINE: ${{ secrets.SESSION_JANAINE }}
           SESSION_ANA: ${{ secrets.SESSION_ANA }}
           SESSION_MIH: ${{ secrets.SESSION_MIH }}
           SESSION_ROSE: ${{ secrets.SESSION_ROSE }}
-          SESSION_ELOISA: ${{ secrets.SESSION_ELOISA }}
-          SESSION_TAIS: ${{ secrets.SESSION_TAIS }}
           SESSION_MICHELE: ${{ secrets.SESSION_MICHELE }}
 
         run: |
