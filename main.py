@@ -37,7 +37,7 @@ CONTAS = [
         "msg": "Steffani/Gigante R3"
         },
 
-    #      21h00 SENHA BATE 🚨-1003010614751
+    #      21h00 SENHA BATE 🚨-1003010614751  mudou para as 20h45 preferencial
     {
         "nome": "katia", 
         "secret_name": "SESSION_KATIA",
@@ -47,8 +47,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 22
-MINUTO_ALVO = 20
+HORA_ALVO = 19
+MINUTO_ALVO = 57
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
