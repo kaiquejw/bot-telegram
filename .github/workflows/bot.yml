@@ -39,6 +39,7 @@ jobs:
           SESSION_THAINA: ${{ secrets.SESSION_THAINA }}
           SESSION_STEFFANI: ${{ secrets.SESSION_STEFFANI }}
           SESSION_KATIA: ${{ secrets.SESSION_KATIA }}
+          SESSION_MICHELE: ${{ secrets.SESSION_MICHELE }}
 
         run: |
           # Define fuso horário de SP para o Python saber a hora certa
