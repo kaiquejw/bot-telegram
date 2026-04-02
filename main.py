@@ -15,12 +15,12 @@ CONTAS = [
 
 
     #      19h00 DOBRA 19:00 🟣 -1002742703600
-    #{
-    #    "nome": "Glaucia", 
-    #    "secret_name": "SESSION_GLAUCIA",
-    #    "chat_id": -1002742703600,
-    #    "msg": "Eduarda Kelvin raio 4"
-    #},
+    {
+        "nome": "Glaucia", 
+        "secret_name": "SESSION_GLAUCIA",
+        "chat_id": -1002742703600,
+        "msg": "Eduarda Kelvin raio 4"
+    },
 
     #      20h30  SENHA NORMAL 🚨-1002704903786
     #{
