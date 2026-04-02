@@ -30,6 +30,14 @@ CONTAS = [
         "msg": "Michele x Paquistão raio3"
     },
 
+    #      20h45
+    #{
+    #    "nome": "Viviane", 
+    #    "secret_name": "SESSION_VIVIANE",
+    #    "chat_id": ,
+    #    "msg": "Viviane x Cleber raio 2"
+    #},
+
     #      21h00 SENHA BATE 🚨-1003010614751
     {
         "nome": "katia",
@@ -40,8 +48,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 13
-MINUTO_ALVO = 45
+HORA_ALVO = 14
+MINUTO_ALVO = 48
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
