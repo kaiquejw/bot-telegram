@@ -36,6 +36,10 @@ ACCOUNTS = {
         "secret_name": "SESSION_SARA",
     },
 
+    "Steffani": {
+        "secret_name": "SESSION_STEFFANI",
+    },
+
 }
 
 
@@ -43,11 +47,21 @@ JOBS = [
     {
         "name": "sara",
         "account": "sara",
-        "hour": 12,
-        "minute": 40,
+        "hour": 15,
+        "minute": 55,
         "weekdays": [1],
         "chat_id": -5215567369,
         "msg": "Sara esposa demorisval raio 1 cela 27 longa distância",
+    },
+
+    {
+        "name": "Steffani",
+        "account": "Steffani",
+        "hour": 15,
+        "minute": 55,
+        "weekdays": [1],
+        "chat_id": -5207514700,
+        "msg": "Steffani/Gigante R3",
     },
 ]
 
