@@ -1,312 +1,150 @@
 import asyncio
-import datetime as dt
 import os
-from dataclasses import dataclass
-from zoneinfo import ZoneInfo
-
+import datetime
 from telethon import TelegramClient
-from telethon.errors import ChatWriteForbiddenError, FloodWaitError
 from telethon.sessions import StringSession
+from telethon.errors import ChatWriteForbiddenError, FloodWaitError
 
+# --- CONFIGURAÇÕES GERAIS ---
+API_ID = int(os.environ.get('TELEGRAM_API_ID'))
+API_HASH = os.environ.get('TELEGRAM_API_HASH')
 
-def get_required_env(name: str) -> str:
-    value = os.getenv(name)
-    if not value:
-        raise RuntimeError(f"Variavel de ambiente obrigatoria ausente: {name}")
-    return value
+# --- LISTA DE ATIRADORES (EXÉRCITO) ---
+# ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
+CONTAS = [
 
-
-API_ID = int(get_required_env("TELEGRAM_API_ID"))
-API_HASH = get_required_env("TELEGRAM_API_HASH")
-TIMEZONE = ZoneInfo(os.getenv("BOT_TIMEZONE", "America/Sao_Paulo"))
-
-PREPARE_SECONDS = int(os.getenv("PREPARE_SECONDS", "60"))
-RETRY_INTERVAL_SECONDS = float(os.getenv("RETRY_INTERVAL_SECONDS", "0.027"))
-GIVE_UP_AFTER_SECONDS = int(os.getenv("GIVE_UP_AFTER_SECONDS", "120"))
-RUN_FOREVER = os.getenv("RUN_FOREVER", "0").strip().lower() in {
-    "1",
-    "true",
-    "yes",
-    "on",
-}
-
-
-ACCOUNTS = {
-    "sara": {
-        "secret_name": "SESSION_SARA",
-    },
-
-    "Steffani": {
+        #      20h30  SENHA BATE 🚨-1003010614751
+    {
+        "nome": "Steffani", 
         "secret_name": "SESSION_STEFFANI",
-    },
-
-}
-
-
-JOBS = [
-    {
-        "name": "sara",
-        "account": "sara",
-        "hour": 15,
-        "minute": 55,
-        "weekdays": [1],
-        "chat_id": -5215567369,
-        "msg": "Sara esposa demorisval raio 1 cela 27 longa distância",
-    },
-
-    {
-        "name": "Steffani",
-        "account": "Steffani",
-        "hour": 15,
-        "minute": 55,
-        "weekdays": [1],
         "chat_id": -5207514700,
-        "msg": "Steffani/Gigante R3",
+        "msg": "Steffani/Gigante R3 "
     },
+            #      20h45  
+    #{
+    #    "nome": "Jaqueline", 
+    #    "secret_name": "SESSION_JAQUELINE",
+    #    "chat_id": -5207514700,
+    #    "msg": ""
+    #},
+            #      21h00  SENHA BATE 🚨 -1003010614751
+    {
+        "nome": "Katia", 
+        "secret_name": "SESSION_KATIA",
+        "chat_id": -5117474448,
+        "msg": "Katia pantanal r2 laudo"
+    },
+
 ]
 
+# ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
+HORA_ALVO = 21
+MINUTO_ALVO = 00
 
-@dataclass
-class ConnectedAccount:
-    name: str
-    client: TelegramClient
-
-
-@dataclass
-class PreparedJob:
-    job_name: str
-    account_name: str
-    client: TelegramClient
-    chat: object
-    msg: str
-
-
-def now_local() -> dt.datetime:
-    return dt.datetime.now(TIMEZONE)
-
-
-def validate_jobs() -> None:
-    if not JOBS:
-        raise RuntimeError("Cadastre pelo menos um item em JOBS.")
-
-    for job in JOBS:
-        account_name = job["account"]
-        if account_name not in ACCOUNTS:
-            raise RuntimeError(
-                f"Job {job['name']} referencia a conta {account_name}, "
-                "mas ela nao existe em ACCOUNTS."
-            )
-
-
-def next_occurrence(job: dict, reference: dt.datetime) -> dt.datetime:
-    weekdays = job.get("weekdays")
-
-    for day_offset in range(8):
-        candidate_date = reference.date() + dt.timedelta(days=day_offset)
-        if weekdays is not None and candidate_date.weekday() not in weekdays:
-            continue
-
-        candidate = dt.datetime.combine(
-            candidate_date,
-            dt.time(job["hour"], job["minute"]),
-            tzinfo=TIMEZONE,
-        )
-        if candidate > reference:
-            return candidate
-
-    raise RuntimeError(f"Nao encontrei uma proxima execucao valida para {job['name']}.")
-
-
-def get_next_job_batch(reference: dt.datetime) -> tuple[list[dict], dt.datetime]:
-    candidates = [(job, next_occurrence(job, reference)) for job in JOBS]
-    next_target = min(target for _, target in candidates)
-    next_jobs = [job for job, target in candidates if target == next_target]
-    return next_jobs, next_target
-
-
-async def sleep_until(target: dt.datetime) -> None:
-    while True:
-        remaining = (target - now_local()).total_seconds()
-        if remaining <= 0:
-            return
-
-        if remaining > 300:
-            sleep_for = 60
-        elif remaining > 60:
-            sleep_for = 15
-        elif remaining > 5:
-            sleep_for = 1
-        else:
-            sleep_for = min(remaining, 0.05)
-
-        await asyncio.sleep(sleep_for)
-
-
-async def prepare_account(account_name: str) -> ConnectedAccount | None:
-    account = ACCOUNTS[account_name]
-    session_str = os.getenv(account["secret_name"])
+async def sniper_individual(conta, alvo):
+    """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
+    
+    session_str = os.environ.get(conta['secret_name'])
     if not session_str:
-        print(
-            f"[SKIP] {account_name}: secret {account['secret_name']} nao encontrado."
-        )
-        return None
+        print(f"⚠️ Pulei {conta['nome']}: Segredo não encontrado.")
+        return
 
     client = TelegramClient(StringSession(session_str), API_ID, API_HASH)
+    chat_alvo_especifico = conta.get('chat_id')
 
     try:
         await client.connect()
+        # Força atualização dos diálogos para garantir que encontra o ID -1002704903786
+        await client.get_dialogs()
+        
         if not await client.is_user_authorized():
-            print(f"[ERRO] {account_name}: sessao nao autorizada.")
-            await client.disconnect()
-            return None
-
-        print(f"[OK] {account_name} conectado.")
-        return ConnectedAccount(name=account_name, client=client)
-    except Exception as exc:
-        print(f"[ERRO] {account_name}: falha ao preparar conta: {exc}")
-        if client.is_connected():
-            await client.disconnect()
-        return None
-
-
-async def prepare_job(job: dict, account: ConnectedAccount) -> PreparedJob | None:
-    try:
-        input_chat = await account.client.get_input_entity(job["chat_id"])
-        print(
-            f"[OK] Job {job['name']} armado com a conta {account.name} "
-            f"para {job['hour']:02d}:{job['minute']:02d}."
-        )
-        return PreparedJob(
-            job_name=job["name"],
-            account_name=account.name,
-            client=account.client,
-            chat=input_chat,
-            msg=job["msg"],
-        )
-    except Exception as exc:
-        print(f"[ERRO] Job {job['name']}: falha ao resolver chat: {exc}")
-        return None
-
-
-async def close_account(account: ConnectedAccount) -> None:
-    if account.client.is_connected():
-        await account.client.disconnect()
-
-
-async def send_with_retry(
-    job: PreparedJob,
-    target: dt.datetime,
-    fire_event: asyncio.Event,
-) -> bool:
-    await fire_event.wait()
-
-    attempts = 0
-    while True:
-        drift = (now_local() - target).total_seconds()
-        if drift > GIVE_UP_AFTER_SECONDS:
-            print(f"[TIMEOUT] {job.job_name}: janela esgotada.")
-            return False
-
-        try:
-            await job.client.send_message(job.chat, job.msg)
-            sent_at = now_local()
-            delta_ms = int((sent_at - target).total_seconds() * 1000)
-            print(
-                f"[ENVIO] {job.job_name} ({job.account_name}) "
-                f"em {sent_at.strftime('%H:%M:%S.%f')} ({delta_ms:+} ms)"
-            )
-            return True
-        except ChatWriteForbiddenError:
-            attempts += 1
-            await asyncio.sleep(RETRY_INTERVAL_SECONDS)
-        except FloodWaitError as exc:
-            print(f"[FLOOD] {job.job_name}: aguardando {exc.seconds}s.")
-            await asyncio.sleep(exc.seconds)
-        except Exception as exc:
-            attempts += 1
-            print(f"[WARN] {job.job_name}: tentativa {attempts} falhou: {exc}")
-            await asyncio.sleep(0.1)
-
-
-async def run_job_batch(jobs: list[dict], target: dt.datetime) -> None:
-    prepare_at = target - dt.timedelta(seconds=PREPARE_SECONDS)
-    now = now_local()
-    job_names = ", ".join(job["name"] for job in jobs)
-
-    print(
-        f"[AGENDA] {len(jobs)} job(s) -> {target.strftime('%d/%m/%Y %H:%M:%S %Z')} "
-        f"| {job_names}"
-    )
-
-    if now < prepare_at:
-        print(
-            f"[ESPERA] Dormindo ate {prepare_at.strftime('%H:%M:%S')} "
-            "para preparar as contas."
-        )
-        await sleep_until(prepare_at)
-
-    account_names = sorted({job["account"] for job in jobs})
-    print("[PREP] Conectando contas antes do disparo...")
-    connected_accounts = {
-        account.name: account
-        for account in await asyncio.gather(
-            *(prepare_account(account_name) for account_name in account_names)
-        )
-        if account is not None
-    }
-
-    if not connected_accounts:
-        print("[ERRO] Nenhuma conta ficou pronta para o lote.")
-        return
-
-    prepared_jobs = [
-        prepared
-        for prepared in await asyncio.gather(
-            *(
-                prepare_job(job, connected_accounts[job["account"]])
-                for job in jobs
-                if job["account"] in connected_accounts
-            )
-        )
-        if prepared is not None
-    ]
-
-    if not prepared_jobs:
-        print("[ERRO] Nenhum job ficou pronto para enviar.")
-        await asyncio.gather(*(close_account(account) for account in connected_accounts.values()))
-        return
-
-    fire_event = asyncio.Event()
-    fire_delay = max((target - now_local()).total_seconds(), 0)
-    handle = asyncio.get_running_loop().call_later(fire_delay, fire_event.set)
-
-    print(
-        f"[ARMADO] {len(prepared_jobs)} job(s) aguardando o mesmo gatilho para enviar."
-    )
-
-    try:
-        results = await asyncio.gather(
-            *(send_with_retry(job, target, fire_event) for job in prepared_jobs)
-        )
-        success_count = sum(1 for result in results if result)
-        print(f"[FIM] {success_count}/{len(prepared_jobs)} job(s) enviados.")
-    finally:
-        handle.cancel()
-        await asyncio.gather(*(close_account(account) for account in connected_accounts.values()))
-
-
-async def runner() -> None:
-    validate_jobs()
-
-    while True:
-        jobs, target = get_next_job_batch(now_local())
-        await run_job_batch(jobs, target)
-
-        if not RUN_FOREVER:
+            print(f"❌ {conta['nome']}: Falha no Login.")
             return
 
-        await asyncio.sleep(1)
+        print(f"✅ {conta['nome']} pronto. Alvo: {chat_alvo_especifico}")
 
+        # --- FASE 1: ESPERA (Modo Econômico) ---
+        # Fica dormindo até faltarem 30 segundos para não gastar CPU à toa
+        while (alvo - datetime.datetime.now()).total_seconds() > 30:
+            await asyncio.sleep(1)
 
-if __name__ == "__main__":
-    asyncio.run(runner())
+        print(f"⚠️ {conta['nome']} entrou em ALERTA MÁXIMO (Faltam < 30s)")
+
+        # --- FASE 2: AQUECIMENTO E DISPARO ---
+        enviado = False
+        tentativa = 0
+        
+        # Loop até enviar ou passar do tempo
+        while not enviado:
+            agora = datetime.datetime.now()
+            diferenca = (alvo - agora).total_seconds()
+
+            # Se já passou 2 minutos do horário, desiste.
+            if diferenca < -120: 
+                print(f"❌ {conta['nome']} Desistindo (Tempo esgotado).")
+                break
+
+            # ⚠️ MUDANÇA 2: ESPERA INTELIGENTE ⚠️
+            # Se faltar mais de 2 segundos, dorme um pouco.
+            # Isso evita que o robô tome FloodWait por tentar cedo demais.
+            if diferenca > 0.2:
+                await asyncio.sleep(0.01)
+                continue
+
+            # --- ZONA DE GUERRA (Faltam < 2 segundos ou já passou) ---
+            try:
+                # Tenta enviar!
+                await client.send_message(chat_alvo_especifico, conta['msg'])
+                
+                # Se passou daqui, ENVIOU!
+                enviado = True
+                print(f"🏆 {conta['nome']} -> ENVIOU! TENTATIVA {tentativa} ({datetime.datetime.now().strftime('%H:%M:%S.%f')})")
+                
+            except ChatWriteForbiddenError:
+                # ⚠️ MUDANÇA 3: REAÇÃO RÁPIDA ⚠️
+                # O GRUPO AINDA ESTÁ FECHADO.
+                tentativa += 1
+                # Dorme APENAS 0.05s (50ms). Antes era 0.2s (200ms).
+                # Isso faz ele tentar 4x mais rápido.
+                await asyncio.sleep(0.027) 
+                
+            except FloodWaitError as e:
+                print(f"🛑 {conta['nome']} FloodWait: {e.seconds}s (Esperando...)")
+                await asyncio.sleep(e.seconds)
+                
+            except Exception as e:
+                print(f"⚠️ Erro: {e}")
+                await asyncio.sleep(0.1)
+
+    except Exception as e:
+        print(f"❌ Erro fatal {conta['nome']}: {e}")
+    finally:
+        if client.is_connected():
+            await client.disconnect()
+
+async def main():
+    agora = datetime.datetime.now()
+    alvo = agora.replace(hour=HORA_ALVO, minute=MINUTO_ALVO, second=0, microsecond=0)
+    
+    print(f"🔥 INICIANDO MODO TURBO ({len(CONTAS)} contas)")
+    print(f"🎯 Alvo: {alvo.strftime('%H:%M:%S')}")
+
+    # Espera inicial para não gastar GitHub Actions à toa
+    while (alvo - datetime.datetime.now()).total_seconds() > 40:
+        restante = int((alvo - datetime.datetime.now()).total_seconds())
+        if restante % 30 == 0:
+            print(f"💤 Aguardando... Falta {restante}s")
+        await asyncio.sleep(5)
+
+    print("⚔️ PREPARANDO ATAQUE... (Faltam < 40s)")
+    
+    tarefas = []
+    for conta in CONTAS:
+        tarefas.append(sniper_individual(conta, alvo))
+    
+    await asyncio.gather(*tarefas)
+
+if __name__ == '__main__':
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(main())
