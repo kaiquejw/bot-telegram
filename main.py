@@ -13,33 +13,35 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 # ⚠️ MUDANÇA 1: JAQUELINE EM PRIMEIRO (PRIORIDADE MÁXIMA) ⚠️
 CONTAS = [
 
-        #      20h30  SENHA BATE 🚨-1003010614751
+        #      20h30  SENHA BATE 🚨 -1002704903786
     {
         "nome": "Steffani", 
         "secret_name": "SESSION_STEFFANI",
-        "chat_id": -5207514700,
+        "chat_id": -1002704903786,
         "msg": "Steffani/Gigante R3 "
     },
+
         #      20h45  SENHA PREF 🚨 -1003049291964
-    {
-        "nome": "Jaqueline", 
-        "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -5291105956,
-        "msg": "Jakeline x Daniel raio 3"
-    },
+    #{
+    #    "nome": "Jaqueline", 
+    #    "secret_name": "SESSION_JAQUELINE",
+    #    "chat_id": -1003049291964,
+    #    "msg": "Jakeline x Daniel raio 3"
+    #},
+
         #      21h00  SENHA BATE 🚨 -1003010614751
-    {
-        "nome": "Katia", 
-        "secret_name": "SESSION_KATIA",
-        "chat_id": -5117474448,
-        "msg": "Katia pantanal r2 laudo"
-    },
+    #{
+    #    "nome": "Katia", 
+    #    "secret_name": "SESSION_KATIA",
+    #    "chat_id": -1003010614751,
+    #    "msg": "Katia pantanal r2 laudo"
+    #},
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 17
-MINUTO_ALVO = 37
+HORA_ALVO = 20
+MINUTO_ALVO = 30
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
@@ -106,7 +108,7 @@ async def sniper_individual(conta, alvo):
                 tentativa += 1
                 # Dorme APENAS 0.05s (50ms). Antes era 0.2s (200ms).
                 # Isso faz ele tentar 4x mais rápido.
-                await asyncio.sleep(0.025) 
+                await asyncio.sleep(0.020) 
                 
             except FloodWaitError as e:
                 print(f"🛑 {conta['nome']} FloodWait: {e.seconds}s (Esperando...)")
