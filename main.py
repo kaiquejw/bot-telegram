@@ -15,21 +15,27 @@ CONTAS = [
 
 
 
-
+        # 20h00 Grupo da senha DOBRA Flórida Paulista -1002443109385
+    {
+        "nome": "Thaina", 
+        "secret_name": "SESSION_THAINA",
+        "chat_id": -5283304962,
+        "msg": "Thaina X Daniel R2"
+    },
 
         #      21h00  SENHA BATE 🚨 -1003010614751
     {
         "nome": "Katia", 
         "secret_name": "SESSION_KATIA",
-        "chat_id": -1003010614751,
+        "chat_id": -5117474448,
         "msg": "Katia pantanal r2 laudo"
     },
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 21
-MINUTO_ALVO = 00
+HORA_ALVO = 10
+MINUTO_ALVO = 20
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
