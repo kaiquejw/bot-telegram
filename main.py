@@ -18,7 +18,7 @@ CONTAS = [
     {
         "nome": "Glaucia", 
         "secret_name": "SESSION_GLAUCIA",
-        "chat_id": -5222468702,
+        "chat_id": -1002742703600,
         "msg": "Eduarda Kelvin raio 4"
     },
 
@@ -30,13 +30,13 @@ CONTAS = [
     #    "msg": "Mel x Profeta R4 (criança)"
     #},
 
-        #    20h30  SENHA NORMAL 🚨 -1002704903786   FALTA TESTAR ELAAAA
-    {
-        "nome": "Marly", 
-        "secret_name": "SESSION_MARLY",
-        "chat_id": -5168993425,
-        "msg": "Marli x tico Raio 6",
-    },    
+        #    20h30  SENHA NORMAL 🚨 -1002704903786   
+    #{
+    #    "nome": "Marly", 
+    #    "secret_name": "SESSION_MARLY",
+    #    "chat_id": -1002704903786,
+    #    "msg": "Marli x tico Raio 6",
+    #},    
 
         #    20h45  SENHA PREF 🚨 -1003049291964
     #{
@@ -57,8 +57,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 17
-MINUTO_ALVO = 33
+HORA_ALVO = 19
+MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
@@ -125,7 +125,7 @@ async def sniper_individual(conta, alvo):
                 tentativa += 1
                 # Dorme APENAS 0.05s (50ms). Antes era 0.2s (200ms).
                 # Isso faz ele tentar 4x mais rápido.
-                await asyncio.sleep(0.010) 
+                await asyncio.sleep(0.005) 
                 
             except FloodWaitError as e:
                 print(f"🛑 {conta['nome']} FloodWait: {e.seconds}s (Esperando...)")
