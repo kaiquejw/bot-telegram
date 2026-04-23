@@ -40,6 +40,7 @@ jobs:
           SESSION_THAINA: ${{ secrets.SESSION_THAINA }}
           SESSION_MEL: ${{ secrets.SESSION_MEL }}
           SESSION_MARLY: ${{ secrets.SESSION_MARLY }}
+          SESSION_GLAUCIA: ${{ secrets.SESSION_GLAUCIA }}
 
 
         run: |

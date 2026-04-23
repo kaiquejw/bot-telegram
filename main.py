@@ -14,21 +14,29 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 CONTAS = [
 
 
-        #    20h00 GRUPO DA SENHA PREFERENCIAL P3 DE LAVINIA -1002530936713
+        #    DOBRA 19:00 🟣 -1002742703600
     {
-        "nome": "Mel", 
-        "secret_name": "SESSION_MEL",
-        "chat_id": -1002530936713,
-        "msg": "Mel x Profeta R4 (criança)"
+        "nome": "Glaucia", 
+        "secret_name": "SESSION_GLAUCIA",
+        "chat_id": -5222468702,
+        "msg": "Eduarda Kelvin raio 4"
     },
 
-        #    20h30  SENHA NORMAL 🚨 -1002704903786   FALTA TESTAR ELAAAA
+        #    20h00 GRUPO DA SENHA PREFERENCIAL P3 DE LAVINIA -1002530936713
     #{
-    #    "nome": "Marly", 
-    #    "secret_name": "SESSION_MARLY",
-    #    "chat_id": -1002704903786,
-    #    "msg": "Marli x tico Raio 6"
-    #},    
+    #    "nome": "Mel", 
+    #    "secret_name": "SESSION_MEL",
+    #    "chat_id": -1002530936713,
+    #    "msg": "Mel x Profeta R4 (criança)"
+    #},
+
+        #    20h30  SENHA NORMAL 🚨 -1002704903786   FALTA TESTAR ELAAAA
+    {
+        "nome": "Marly", 
+        "secret_name": "SESSION_MARLY",
+        "chat_id": -5168993425,
+        "msg": "Marli x tico Raio 6",
+    },    
 
         #    20h45  SENHA PREF 🚨 -1003049291964
     #{
@@ -49,8 +57,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 20
-MINUTO_ALVO = 00
+HORA_ALVO = 17
+MINUTO_ALVO = 33
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
