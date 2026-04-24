@@ -14,21 +14,14 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 CONTAS = [
 
 
-        #    DOBRA 19:00 🟣 -1002742703600
-    {
-        "nome": "Glaucia", 
-        "secret_name": "SESSION_GLAUCIA",
-        "chat_id": -1002742703600,
-        "msg": "Eduarda Kelvin raio 4"
-    },
 
         #    20h00 GRUPO DA SENHA PREFERENCIAL P3 DE LAVINIA -1002530936713
-    #{
-    #    "nome": "Mel", 
-    #    "secret_name": "SESSION_MEL",
-    #    "chat_id": -1002530936713,
-    #    "msg": "Mel x Profeta R4 (criança)"
-    #},
+    {
+        "nome": "Mel", 
+        "secret_name": "SESSION_MEL",
+        "chat_id": -1002530936713,
+        "msg": "Mel x Profeta R4 (criança)"
+    },
 
         #    20h30  SENHA NORMAL 🚨 -1002704903786   
     #{
@@ -57,7 +50,7 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 19
+HORA_ALVO = 20
 MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
