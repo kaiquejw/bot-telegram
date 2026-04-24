@@ -15,21 +15,13 @@ CONTAS = [
 
 
 
-        #    20h00 GRUPO DA SENHA PREFERENCIAL P3 DE LAVINIA -1002530936713
-    {
-        "nome": "Mel", 
-        "secret_name": "SESSION_MEL",
-        "chat_id": -1002530936713,
-        "msg": "Mel x Profeta R4 (criança)"
-    },
-
         #    20h30  SENHA NORMAL 🚨 -1002704903786   
-    #{
-    #    "nome": "Marly", 
-    #    "secret_name": "SESSION_MARLY",
-    #    "chat_id": -1002704903786,
-    #    "msg": "Marli x tico Raio 6",
-    #},    
+    {
+        "nome": "Marly", 
+        "secret_name": "SESSION_MARLY",
+        "chat_id": -1002704903786,
+        "msg": "Marli x tico Raio 6",
+    },    
 
         #    20h45  SENHA PREF 🚨 -1003049291964
     #{
@@ -51,7 +43,7 @@ CONTAS = [
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
 HORA_ALVO = 20
-MINUTO_ALVO = 00
+MINUTO_ALVO = 30
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
