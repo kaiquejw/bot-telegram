@@ -41,6 +41,9 @@ jobs:
           SESSION_MEL: ${{ secrets.SESSION_MEL }}
           SESSION_MARLY: ${{ secrets.SESSION_MARLY }}
           SESSION_GLAUCIA: ${{ secrets.SESSION_GLAUCIA }}
+          SESSION_MICAELLY: ${{ secrets.SESSION_MICAELLY }}
+          SESSION_GIOVANA: ${{ secrets.SESSION_GIOVANA }}
+          SESSION_MONICA: ${{ secrets.SESSION_MONICA }}
 
 
         run: |
