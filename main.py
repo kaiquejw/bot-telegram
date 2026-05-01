@@ -19,42 +19,42 @@ CONTAS = [
     {
         "nome": "Micaelly", 
         "secret_name": "SESSION_MICAELLY",
-        "chat_id": -5202185165,
+        "chat_id": -1002742703600,
         "msg": "Micaelly X Rodrigo R2"
     },
 
         #  20h00 Grupo senha normal -1003601357589
-    {
-        "nome": "Giovana", 
-        "secret_name": "SESSION_GIOVANA",
-        "chat_id": -5173808575,
-        "msg": "Giovana - Branco/Raio 6"
-    },
+    #{
+    #    "nome": "Giovana", 
+    #    "secret_name": "SESSION_GIOVANA",
+    #    "chat_id": -1003601357589,
+    #    "msg": "Giovana x Branco R6"
+    #},
 
         #  20h20 Senha normal -1003875645355
-    {
-        "nome": "Monica", 
-        "secret_name": "SESSION_MONICA",
-        "chat_id": -4801139096,
-        "msg": "Mônica x jaçanã G11"
-    },
+    #{
+    #    "nome": "Monica", 
+    #    "secret_name": "SESSION_MONICA",
+    #    "chat_id": -1003875645355,
+    #    "msg": "Mônica x jaçanã G11"
+    #},
 
 
         #      21h00  SENHA BATE 🚨 -1003010614751
-    {
-        "nome": "Katia", 
-        "secret_name": "SESSION_KATIA",
-        "chat_id": -5117474448,
-        "msg": "Katia pantanal r2 laudo"
-    },
+    #{
+    #    "nome": "Katia", 
+    #    "secret_name": "SESSION_KATIA",
+    #    "chat_id": -1003010614751,
+    #    "msg": "Katia pantanal r2 laudo"
+    #},
 
     
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 17
-MINUTO_ALVO = 12
+HORA_ALVO = 19
+MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
