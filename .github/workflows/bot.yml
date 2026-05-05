@@ -44,6 +44,8 @@ jobs:
           SESSION_MICAELLY: ${{ secrets.SESSION_MICAELLY }}
           SESSION_GIOVANA: ${{ secrets.SESSION_GIOVANA }}
           SESSION_MONICA: ${{ secrets.SESSION_MONICA }}
+          SESSION_PALOMA: ${{ secrets.SESSION_PALOMA }}
+          SESSION_SARA: ${{ secrets.SESSION_SARA }}
 
 
         run: |
