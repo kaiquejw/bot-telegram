@@ -21,6 +21,14 @@ CONTAS = [
         "msg": "Thaís/XT 3a dobra"
     },
 
+        # 20h30 SENHA NORMAL 🚨 -1002704903786
+    {
+        "nome": "Pit", 
+        "secret_name": "SESSION_PIT",
+        "chat_id": -5062963292,
+        "msg": "Pit x poeira Raio 6"
+    },
+
 
         # 20h45 SENHA PREF 🚨 -1003049291964
     {
@@ -43,8 +51,8 @@ CONTAS = [
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 15
-MINUTO_ALVO = 32
+HORA_ALVO = 16
+MINUTO_ALVO = 56
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""

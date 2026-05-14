@@ -39,6 +39,7 @@ jobs:
           SESSION_MEL: ${{ secrets.SESSION_MEL }}
           SESSION_GABRIELLA: ${{ secrets.SESSION_GABRIELLA }}
           SESSION_THAIS: ${{ secrets.SESSION_THAIS }}
+          SESSION_PIT: ${{ secrets.SESSION_PIT }}
 
 
         run: |
