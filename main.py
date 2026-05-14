@@ -17,42 +17,42 @@ CONTAS = [
     {
         "nome": "Thais", 
         "secret_name": "SESSION_THAIS",
-        "chat_id": -5186476035,
+        "chat_id": -1002394231597,
         "msg": "Thaís/XT 3a dobra"
     },
 
         # 20h30 SENHA NORMAL 🚨 -1002704903786
-    {
-        "nome": "Pit", 
-        "secret_name": "SESSION_PIT",
-        "chat_id": -5062963292,
-        "msg": "Pit x poeira Raio 6"
-    },
+    #{
+    #    "nome": "Pit", 
+    #    "secret_name": "SESSION_PIT",
+    #    "chat_id": -1002704903786,
+    #    "msg": "Pit x poeira Raio 6"
+    #},
 
 
         # 20h45 SENHA PREF 🚨 -1003049291964
-    {
-        "nome": "Jaqueline", 
-        "secret_name": "SESSION_JAQUELINE",
-        "chat_id": -5291105956,
-        "msg": "Jakeline x Daniel raio 3"
-    },  
+    #{
+    #    "nome": "Jaqueline", 
+    #    "secret_name": "SESSION_JAQUELINE",
+    #    "chat_id": -1003049291964,
+    #    "msg": "Jakeline x Daniel raio 3"
+    #},  
 
 
         # 21h00 SENHA BATE 🚨  -1003010614751
-    {
-        "nome": "Katia", 
-        "secret_name": "SESSION_KATIA",
-        "chat_id": -5117474448,
-        "msg": "Katia pantanal r2 laudo"
-    },  
+    #{
+    #    "nome": "Katia", 
+    #    "secret_name": "SESSION_KATIA",
+    #    "chat_id": -1003010614751,
+    #    "msg": "Katia pantanal r2 laudo"
+    #},  
 
 
 ]
 
 # ⚠️ AJUSTE AQUI PARA O DIA DA SENHA ⚠️
-HORA_ALVO = 16
-MINUTO_ALVO = 59
+HORA_ALVO = 20
+MINUTO_ALVO = 00
 
 async def sniper_individual(conta, alvo):
     """Função otimizada para VELOCIDADE MÁXIMA (Modo Turbo)"""
