@@ -21,7 +21,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 00,   
-        "minuto": 45  
+        "minuto": 58
     },  
     {
         "nome": "Laysa", 
@@ -29,7 +29,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 00,
-        "minuto": 45
+        "minuto": 58
     },  
     {
         "nome": "Katia", 
@@ -37,7 +37,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 00,   
-        "minuto": 45
+        "minuto": 58
     }
 ]
 
@@ -67,7 +67,7 @@ async def sniper_individual(conta):
 
     # 2. Espera inteligente de altíssima precisão
     # Checa o relógio 100x por segundo nos momentos finais
-    while (alvo - datetime.datetime.now()).total_seconds() > 0.1:
+    while (alvo - datetime.datetime.now()).total_seconds() > 0.0:
         await asyncio.sleep(0.01) 
 
     # 3. ZONA DE GUERRA
