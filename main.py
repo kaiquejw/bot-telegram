@@ -9,12 +9,6 @@ from dotenv import load_dotenv
 from telethon import TelegramClient, errors
 from telethon.sessions import StringSession
 
-from telethon.errors import (
-    ChatWriteForbiddenError,
-    ChatSendPlainForbiddenError,
-    FloodWaitError,
-)
-
 try:
     # Opcional: em Linux costuma reduzir overhead do event loop.
     # Instale com: pip install uvloop
@@ -58,7 +52,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 1,
-        "minuto": 13,
+        "minuto": 19,
     },
     {
         "nome": "Laysa",
@@ -66,7 +60,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 1,
-        "minuto": 13,
+        "minuto": 19,
     },
     {
         "nome": "Katia",
@@ -74,7 +68,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 1,
-        "minuto": 13,
+        "minuto": 19,
     },
 ]
 
@@ -235,8 +229,9 @@ async def run_mission(mission: Mission) -> None:
                 )
                 return
 
-            except (ChatWriteForbiddenError, ChatSendPlainForbiddenError):
-                last_error = "chat fechado/restrito"
+            except errors.ChatWriteForbiddenError:
+                last_error = "ChatWriteForbiddenError"
+                # Grupo ainda fechado. Espera curta e controlada para não martelar sem limite.
                 await asyncio.sleep(ATTEMPT_INTERVAL_SEC)
 
             except errors.SlowModeWaitError as e:
@@ -254,7 +249,7 @@ async def run_mission(mission: Mission) -> None:
             except Exception as e:
                 last_error = type(e).__name__
                 log(mission.nome, f"⚠️ erro inesperado na tentativa {attempts}: {type(e).__name__}: {e}")
-                await asyncio.sleep(ATTEMPT_INTERVAL_SEC)
+                await asyncio.sleep(max(ATTEMPT_INTERVAL_SEC, 0.40))
 
         elapsed_ms = (time.perf_counter() - started_perf) * 1000
         log(
