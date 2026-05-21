@@ -52,7 +52,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 1,
-        "minuto": 19,
+        "minuto": 23,
     },
     {
         "nome": "Laysa",
@@ -60,7 +60,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 1,
-        "minuto": 19,
+        "minuto": 23,
     },
     {
         "nome": "Katia",
@@ -68,7 +68,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 1,
-        "minuto": 19,
+        "minuto": 23,
     },
 ]
 
@@ -249,7 +249,7 @@ async def run_mission(mission: Mission) -> None:
             except Exception as e:
                 last_error = type(e).__name__
                 log(mission.nome, f"⚠️ erro inesperado na tentativa {attempts}: {type(e).__name__}: {e}")
-                await asyncio.sleep(max(ATTEMPT_INTERVAL_SEC, 0.40))
+                await asyncio.sleep(max(ATTEMPT_INTERVAL_SEC, 0.040))
 
         elapsed_ms = (time.perf_counter() - started_perf) * 1000
         log(
