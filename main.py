@@ -52,7 +52,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 0,
-        "minuto": 41,
+        "minuto": 48,
     },
     {
         "nome": "Laysa",
@@ -60,7 +60,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 0,
-        "minuto": 41,
+        "minuto": 48,
     },
     {
         "nome": "Katia",
@@ -68,7 +68,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 0,
-        "minuto": 41,
+        "minuto": 48,
     },
 ]
 
@@ -208,7 +208,7 @@ async def run_mission(mission: Mission) -> None:
         attempts = 0
         last_error = ""
 
-        while time.perf_counter() <= deadline_perf and attempts < MAX_ATTEMPTS:
+        while time.perf_counter() <= deadline_perf
             attempts += 1
 
             try:
