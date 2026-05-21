@@ -52,7 +52,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 0,
-        "minuto": 50,
+        "minuto": 59,
     },
     {
         "nome": "Laysa",
@@ -60,7 +60,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 0,
-        "minuto": 50,
+        "minuto": 59,
     },
     {
         "nome": "Katia",
@@ -68,7 +68,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 0,
-        "minuto": 50,
+        "minuto": 59,
     },
 ]
 
