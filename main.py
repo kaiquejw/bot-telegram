@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
-from telethon import TelegramClient, errors
+from telethon import TelegramClient, errors, events, types, utils
 from telethon.sessions import StringSession
 
 try:
@@ -52,7 +52,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 1,
-        "minuto": 23,
+        "minuto": 38,
     },
     {
         "nome": "Laysa",
@@ -60,7 +60,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 1,
-        "minuto": 23,
+        "minuto": 38,
     },
     {
         "nome": "Katia",
@@ -68,7 +68,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 1,
-        "minuto": 23,
+        "minuto": 38,
     },
 ]
 
@@ -152,7 +152,7 @@ def make_client(session_str: str) -> TelegramClient:
         retry_delay=0.2,
         auto_reconnect=True,
         flood_sleep_threshold=0,
-        receive_updates=False,
+        receive_updates=True,
     )
     client.parse_mode = None
     return client
@@ -173,6 +173,68 @@ async def prepare_client(client: TelegramClient, mission: Mission):
         entity = await client.get_input_entity(mission.chat_id)
 
     return entity
+
+async def wait_group_open_event(
+    client: TelegramClient,
+    mission: Mission,
+    entity,
+    deadline_perf: float,
+) -> bool:
+    """
+    Espera um update do Telegram indicando alteração de permissão do grupo.
+    Se detectar que o envio de mensagens foi liberado, retorna True.
+    """
+
+    opened = asyncio.Event()
+
+    try:
+        full_entity = await client.get_entity(entity)
+        target_peer_id = utils.get_peer_id(full_entity)
+    except Exception:
+        target_peer_id = mission.chat_id
+
+    def same_chat(message) -> bool:
+        try:
+            msg_peer_id = utils.get_peer_id(message.peer_id)
+            return msg_peer_id == target_peer_id or msg_peer_id == mission.chat_id
+        except Exception:
+            return False
+
+    @client.on(events.Raw)
+    async def raw_handler(update):
+        message = getattr(update, "message", None)
+
+        if not isinstance(message, types.MessageService):
+            return
+
+        if not same_chat(message):
+            return
+
+        action = getattr(message, "action", None)
+
+        if isinstance(action, types.MessageActionChatEditDefaultBannedRights):
+            rights = getattr(action, "default_banned_rights", None)
+            send_blocked = getattr(rights, "send_messages", None)
+
+            log(
+                mission.nome,
+                f"👀 update de permissão detectado | send_messages_bloqueado={send_blocked}"
+            )
+
+            # send_messages=False significa que enviar mensagem NÃO está mais bloqueado.
+            if send_blocked is False:
+                opened.set()
+
+    try:
+        restante = max(0.0, deadline_perf - time.perf_counter())
+        await asyncio.wait_for(opened.wait(), timeout=restante)
+        return True
+
+    except asyncio.TimeoutError:
+        return False
+
+    finally:
+        client.remove_event_handler(raw_handler, events.Raw)
 
 
 async def run_mission(mission: Mission) -> None:
@@ -208,48 +270,57 @@ async def run_mission(mission: Mission) -> None:
         attempts = 0
         last_error = ""
 
-        while time.perf_counter() <= deadline_perf:
-            attempts += 1
+        log(mission.nome, "👂 aguardando evento de abertura do grupo...")
 
-            try:
-                sent = await client.send_message(
-                    entity,
-                    mission.msg,
-                    link_preview=False,
-                    clear_draft=False,
-                )
+        opened_by_event = await wait_group_open_event(
+            client=client,
+            mission=mission,
+            entity=entity,
+            deadline_perf=deadline_perf,
+        )
 
-                sent_at = now()
-                elapsed_ms = (time.perf_counter() - started_perf) * 1000
+        if not opened_by_event:
+            elapsed_ms = (time.perf_counter() - started_perf) * 1000
+            log(
+                mission.nome,
+                f"⏹️ não detectou abertura por evento | tempo={elapsed_ms:.1f}ms"
+            )
+            return
 
-                log(
-                    mission.nome,
-                    f"🏆 ENVIOU em {fmt(sent_at)} | tentativa={attempts} | "
-                    f"+{elapsed_ms:.1f}ms após alvo | message_id={getattr(sent, 'id', 'n/a')}"
-                )
-                return
+        detected_at = now()
+        detected_ms = (time.perf_counter() - started_perf) * 1000
 
-            except errors.ChatWriteForbiddenError:
-                last_error = "ChatWriteForbiddenError"
-                # Grupo ainda fechado. Espera curta e controlada para não martelar sem limite.
-                await asyncio.sleep(ATTEMPT_INTERVAL_SEC)
+        log(
+            mission.nome,
+            f"🟢 abertura detectada em {fmt(detected_at)} | +{detected_ms:.1f}ms após alvo. Enviando..."
+        )
 
-            except errors.SlowModeWaitError as e:
-                log(mission.nome, f"🛑 SlowModeWaitError: aguarde {e.seconds}s. Parando para evitar punição.")
-                return
+        try:
+            sent = await client.send_message(
+                entity,
+                mission.msg,
+                link_preview=False,
+                clear_draft=False,
+            )
 
-            except errors.FloodWaitError as e:
-                log(mission.nome, f"🛑 FloodWaitError: aguarde {e.seconds}s. Parando para evitar limitação da conta.")
-                return
+            sent_at = now()
+            elapsed_ms = (time.perf_counter() - started_perf) * 1000
 
-            except (errors.UserBannedInChannelError, errors.ChatAdminRequiredError) as e:
-                log(mission.nome, f"❌ sem permissão definitiva: {type(e).__name__}. Parando.")
-                return
+            log(
+                mission.nome,
+                f"🏆 ENVIOU por evento em {fmt(sent_at)} | +{elapsed_ms:.1f}ms após alvo | "
+                f"message_id={getattr(sent, 'id', 'n/a')}"
+            )
+            return
 
-            except Exception as e:
-                last_error = type(e).__name__
-                log(mission.nome, f"⚠️ erro inesperado na tentativa {attempts}: {type(e).__name__}: {e}")
-                await asyncio.sleep(max(ATTEMPT_INTERVAL_SEC, 0.040))
+        except Exception as e:
+            elapsed_ms = (time.perf_counter() - started_perf) * 1000
+            log(
+                mission.nome,
+                f"❌ detectou abertura, mas falhou ao enviar | +{elapsed_ms:.1f}ms | "
+                f"{type(e).__name__}: {e}"
+            )
+            return
 
         elapsed_ms = (time.perf_counter() - started_perf) * 1000
         log(
