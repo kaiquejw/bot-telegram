@@ -10,8 +10,6 @@ from telethon import TelegramClient, errors, events, types, utils
 from telethon.sessions import StringSession
 
 try:
-    # Opcional: em Linux costuma reduzir overhead do event loop.
-    # Instale com: pip install uvloop
     import uvloop  # type: ignore
 except ImportError:
     uvloop = None
@@ -31,18 +29,21 @@ if not API_ID_RAW or not API_HASH:
 
 API_ID = int(API_ID_RAW)
 
-# Use timezone explícito para não depender do timezone da VPS.
 TIMEZONE = ZoneInfo(os.getenv("BOT_TIMEZONE", "America/Sao_Paulo"))
 
-# Segurança operacional: não fica martelando para sempre.
-# 0.080 = 80 ms entre tentativas por conta.
+# Tempo entre tentativas quando o grupo ainda está fechado/restrito.
+# 0.030 = 30ms
 ATTEMPT_INTERVAL_SEC = float(os.getenv("ATTEMPT_INTERVAL_SEC", "0.030"))
+
+# Tempo máximo que ele fica tentando depois do alvo.
 MAX_WINDOW_SEC = float(os.getenv("MAX_WINDOW_SEC", "80.0"))
 
-
-# Preparação e logs.
+# Preparação antes do alvo.
 WARMUP_BEFORE_SEC = float(os.getenv("WARMUP_BEFORE_SEC", "60.0"))
 ALERT_BEFORE_SEC = float(os.getenv("ALERT_BEFORE_SEC", "30.0"))
+
+# Tempo que ele espera por evento de abertura antes de voltar para tentativa normal.
+EVENT_WAIT_SEC = float(os.getenv("EVENT_WAIT_SEC", "3.0"))
 
 
 CONTAS = [
@@ -52,7 +53,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "ok",
         "hora": 1,
-        "minuto": 38,
+        "minuto": 50,
     },
     {
         "nome": "Laysa",
@@ -60,7 +61,7 @@ CONTAS = [
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
         "hora": 1,
-        "minuto": 38,
+        "minuto": 50,
     },
     {
         "nome": "Katia",
@@ -68,7 +69,7 @@ CONTAS = [
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
         "hora": 1,
-        "minuto": 38,
+        "minuto": 50,
     },
 ]
 
@@ -100,11 +101,9 @@ def log(nome: str, texto: str) -> None:
 
 
 def build_target(hour: int, minute: int) -> datetime:
-    """Cria alvo de hoje; se já passou bastante, agenda para amanhã."""
     atual = now()
     alvo = atual.replace(hour=hour, minute=minute, second=0, microsecond=0)
 
-    # Se passou da janela operacional, joga para amanhã.
     if (atual - alvo).total_seconds() > MAX_WINDOW_SEC:
         alvo += timedelta(days=1)
 
@@ -112,14 +111,11 @@ def build_target(hour: int, minute: int) -> datetime:
 
 
 async def sleep_until(target: datetime, *, alert_name: str | None = None) -> None:
-    """
-    Espera até target sem liberar antes.
-    Usa sleep longo longe do alvo e micro-yield no final.
-    """
     alert_logged = False
 
     while True:
         restante = (target - now()).total_seconds()
+
         if restante <= 0:
             return
 
@@ -134,7 +130,6 @@ async def sleep_until(target: datetime, *, alert_name: str | None = None) -> Non
         elif restante > 0.050:
             await asyncio.sleep(0.005)
         else:
-            # Últimos milissegundos: não envia; só confere relógio e cede o loop.
             await asyncio.sleep(0)
 
 
@@ -159,7 +154,6 @@ def make_client(session_str: str) -> TelegramClient:
 
 
 async def prepare_client(client: TelegramClient, mission: Mission):
-    """Conecta e resolve o destino antes do horário para tirar latência do disparo."""
     await client.connect()
 
     if not await client.is_user_authorized():
@@ -168,11 +162,11 @@ async def prepare_client(client: TelegramClient, mission: Mission):
     try:
         entity = await client.get_input_entity(mission.chat_id)
     except Exception:
-        # Fallback: aquece cache de entidades fora da zona crítica.
         await client.get_dialogs(limit=200)
         entity = await client.get_input_entity(mission.chat_id)
 
     return entity
+
 
 async def wait_group_open_event(
     client: TelegramClient,
@@ -180,11 +174,6 @@ async def wait_group_open_event(
     entity,
     deadline_perf: float,
 ) -> bool:
-    """
-    Espera um update do Telegram indicando alteração de permissão do grupo.
-    Se detectar que o envio de mensagens foi liberado, retorna True.
-    """
-
     opened = asyncio.Event()
 
     try:
@@ -221,7 +210,6 @@ async def wait_group_open_event(
                 f"👀 update de permissão detectado | send_messages_bloqueado={send_blocked}"
             )
 
-            # send_messages=False significa que enviar mensagem NÃO está mais bloqueado.
             if send_blocked is False:
                 opened.set()
 
@@ -237,20 +225,47 @@ async def wait_group_open_event(
         client.remove_event_handler(raw_handler, events.Raw)
 
 
+async def try_send_once(
+    client: TelegramClient,
+    mission: Mission,
+    entity,
+    attempts: int,
+    started_perf: float,
+    modo: str,
+):
+    sent = await client.send_message(
+        entity,
+        mission.msg,
+        link_preview=False,
+        clear_draft=False,
+    )
+
+    sent_at = now()
+    elapsed_ms = (time.perf_counter() - started_perf) * 1000
+
+    log(
+        mission.nome,
+        f"🏆 ENVIOU {modo} em {fmt(sent_at)} | tentativa={attempts} | "
+        f"+{elapsed_ms:.1f}ms após alvo | message_id={getattr(sent, 'id', 'n/a')}"
+    )
+
+
 async def run_mission(mission: Mission) -> None:
     session_str = os.getenv(mission.secret_name)
+
     if not session_str:
         log(mission.nome, f"⚠️ pulado: variável {mission.secret_name} não encontrada no .env")
         return
 
     client = make_client(session_str)
-
     warmup_at = mission.target - timedelta(seconds=WARMUP_BEFORE_SEC)
 
     try:
-        log(mission.nome, f"🎯 alvo travado: {mission.target.strftime('%Y-%m-%d %H:%M:%S')} | chat={mission.chat_id}")
+        log(
+            mission.nome,
+            f"🎯 alvo travado: {mission.target.strftime('%Y-%m-%d %H:%M:%S')} | chat={mission.chat_id}"
+        )
 
-        # Não conecta horas antes se o script subir cedo demais.
         if warmup_at > now():
             await sleep_until(warmup_at)
 
@@ -258,69 +273,144 @@ async def run_mission(mission: Mission) -> None:
         entity = await prepare_client(client, mission)
         log(mission.nome, "✅ pronto. entidade resolvida e conexão ativa.")
 
-        # Trava absoluta: daqui só sai quando o relógio for >= alvo.
         await sleep_until(mission.target, alert_name=mission.nome)
 
         started_at = now()
         started_perf = time.perf_counter()
         deadline_perf = started_perf + MAX_WINDOW_SEC
 
-        log(mission.nome, f"🚀 janela de disparo aberta em {fmt(started_at)}. Nenhuma tentativa foi feita antes do alvo.")
+        log(
+            mission.nome,
+            f"🚀 janela de disparo aberta em {fmt(started_at)}. Nenhuma tentativa foi feita antes do alvo."
+        )
 
         attempts = 0
         last_error = ""
 
-        log(mission.nome, "👂 aguardando evento de abertura do grupo...")
+        # =========================
+        # 1) PRIMEIRA TENTATIVA DIRETA
+        # =========================
+        try:
+            attempts += 1
+            await try_send_once(
+                client=client,
+                mission=mission,
+                entity=entity,
+                attempts=attempts,
+                started_perf=started_perf,
+                modo="direto",
+            )
+            return
+
+        except (errors.ChatWriteForbiddenError, errors.ChatSendPlainForbiddenError):
+            last_error = "chat fechado/restrito"
+            log(mission.nome, "🔒 envio direto falhou: grupo fechado/restrito. Aguardando evento curto...")
+
+        except errors.SlowModeWaitError as e:
+            log(mission.nome, f"🛑 SlowModeWaitError: aguarde {e.seconds}s. Parando.")
+            return
+
+        except errors.FloodWaitError as e:
+            log(mission.nome, f"🛑 FloodWaitError: Telegram pediu {e.seconds}s. Parando.")
+            return
+
+        except (errors.UserBannedInChannelError, errors.ChatAdminRequiredError) as e:
+            log(mission.nome, f"❌ sem permissão definitiva: {type(e).__name__}. Parando.")
+            return
+
+        except Exception as e:
+            last_error = type(e).__name__
+            log(mission.nome, f"⚠️ envio direto falhou: {type(e).__name__}: {e}")
+            log(mission.nome, "👂 aguardando evento curto antes de voltar para tentativa normal...")
+
+        # =========================
+        # 2) ESPERA EVENTO POR POUCOS SEGUNDOS
+        # =========================
+        event_deadline_perf = min(
+            deadline_perf,
+            time.perf_counter() + EVENT_WAIT_SEC
+        )
 
         opened_by_event = await wait_group_open_event(
             client=client,
             mission=mission,
             entity=entity,
-            deadline_perf=deadline_perf,
+            deadline_perf=event_deadline_perf,
         )
 
-        if not opened_by_event:
-            elapsed_ms = (time.perf_counter() - started_perf) * 1000
-            log(
-                mission.nome,
-                f"⏹️ não detectou abertura por evento | tempo={elapsed_ms:.1f}ms"
-            )
-            return
-
-        detected_at = now()
-        detected_ms = (time.perf_counter() - started_perf) * 1000
-
-        log(
-            mission.nome,
-            f"🟢 abertura detectada em {fmt(detected_at)} | +{detected_ms:.1f}ms após alvo. Enviando..."
-        )
-
-        try:
-            sent = await client.send_message(
-                entity,
-                mission.msg,
-                link_preview=False,
-                clear_draft=False,
-            )
-
-            sent_at = now()
-            elapsed_ms = (time.perf_counter() - started_perf) * 1000
+        if opened_by_event:
+            detected_at = now()
+            detected_ms = (time.perf_counter() - started_perf) * 1000
 
             log(
                 mission.nome,
-                f"🏆 ENVIOU por evento em {fmt(sent_at)} | +{elapsed_ms:.1f}ms após alvo | "
-                f"message_id={getattr(sent, 'id', 'n/a')}"
+                f"🟢 abertura detectada por evento em {fmt(detected_at)} | +{detected_ms:.1f}ms após alvo. Enviando..."
             )
-            return
 
-        except Exception as e:
-            elapsed_ms = (time.perf_counter() - started_perf) * 1000
-            log(
-                mission.nome,
-                f"❌ detectou abertura, mas falhou ao enviar | +{elapsed_ms:.1f}ms | "
-                f"{type(e).__name__}: {e}"
-            )
-            return
+            try:
+                attempts += 1
+                await try_send_once(
+                    client=client,
+                    mission=mission,
+                    entity=entity,
+                    attempts=attempts,
+                    started_perf=started_perf,
+                    modo="por evento",
+                )
+                return
+
+            except (errors.ChatWriteForbiddenError, errors.ChatSendPlainForbiddenError):
+                last_error = "chat fechado/restrito após evento"
+                log(mission.nome, "⚠️ evento veio, mas envio ainda falhou. Voltando para tentativa normal...")
+
+            except errors.FloodWaitError as e:
+                log(mission.nome, f"🛑 FloodWaitError após evento: Telegram pediu {e.seconds}s. Parando.")
+                return
+
+            except Exception as e:
+                last_error = type(e).__name__
+                log(mission.nome, f"❌ evento detectado, mas envio falhou: {type(e).__name__}: {e}")
+
+        else:
+            log(mission.nome, "⏱️ nenhum evento útil detectado. Voltando para tentativa normal...")
+
+        # =========================
+        # 3) TENTATIVA NORMAL ATÉ MAX_WINDOW_SEC
+        # =========================
+        while time.perf_counter() <= deadline_perf:
+            attempts += 1
+
+            try:
+                await try_send_once(
+                    client=client,
+                    mission=mission,
+                    entity=entity,
+                    attempts=attempts,
+                    started_perf=started_perf,
+                    modo="normal",
+                )
+                return
+
+            except (errors.ChatWriteForbiddenError, errors.ChatSendPlainForbiddenError):
+                last_error = "chat fechado/restrito"
+                await asyncio.sleep(ATTEMPT_INTERVAL_SEC)
+
+            except errors.SlowModeWaitError as e:
+                log(mission.nome, f"🛑 SlowModeWaitError: aguarde {e.seconds}s. Parando.")
+                return
+
+            except errors.FloodWaitError as e:
+                log(mission.nome, f"🛑 FloodWaitError: Telegram pediu {e.seconds}s. Parando.")
+                return
+
+            except (errors.UserBannedInChannelError, errors.ChatAdminRequiredError) as e:
+                log(mission.nome, f"❌ sem permissão definitiva: {type(e).__name__}. Parando.")
+                return
+
+            except Exception as e:
+                last_error = type(e).__name__
+                log(mission.nome, f"⚠️ erro inesperado na tentativa {attempts}: {type(e).__name__}: {e}")
+                await asyncio.sleep(max(ATTEMPT_INTERVAL_SEC, 0.040))
 
         elapsed_ms = (time.perf_counter() - started_perf) * 1000
         log(
@@ -360,8 +450,8 @@ def load_missions() -> list[Mission]:
             )
         )
 
-    # Aviso importante: mesma sessão em várias missões simultâneas aumenta risco de flood e conflito.
     by_secret: dict[str, list[str]] = {}
+
     for m in missions:
         by_secret.setdefault(m.secret_name, []).append(m.nome)
 
@@ -384,6 +474,7 @@ async def main() -> None:
         return
 
     print(f"[{fmt()}] [MAIN] 🔥 iniciando {len(missions)} missão(ões)", flush=True)
+
     for m in missions:
         print(
             f"[{fmt()}] [MAIN] - {m.nome}: {m.target.strftime('%Y-%m-%d %H:%M:%S')} | chat={m.chat_id}",
@@ -393,6 +484,7 @@ async def main() -> None:
     await asyncio.gather(*(run_mission(m) for m in missions))
 
     print(f"[{fmt()}] [MAIN] ✅ finalizado. Entrando em hibernação.", flush=True)
+
     while True:
         await asyncio.sleep(3600)
 
