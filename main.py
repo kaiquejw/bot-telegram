@@ -20,24 +20,24 @@ CONTAS = [
         "secret_name": "SESSION_KAIQUE",
         "chat_id": -4999405862,
         "msg": "ok",
-        "hora": 23,   
-        "minuto": 54
+        "hora": 00,   
+        "minuto": 4
     },  
     {
         "nome": "Laysa", 
         "secret_name": "SESSION_LAYSA",
         "chat_id": -4999405862,
         "msg": "Laysa x Mg R5",
-        "hora": 23,
-        "minuto": 54
+        "hora": 00,
+        "minuto": 4
     },  
     {
         "nome": "Katia", 
         "secret_name": "SESSION_KATIA",
         "chat_id": -5296287589,
         "msg": "Katia pantanal r2 laudo",
-        "hora": 23,   
-        "minuto": 54
+        "hora": 00,   
+        "minuto": 4
     }
 ]
 
