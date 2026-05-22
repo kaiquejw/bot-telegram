@@ -59,7 +59,7 @@ CONTAS = [
         "nome": "Yasmin",
         "secret_name": "SESSION_YASMIN",
         "chat_id": -1003601357589,
-        "msg": "yasmin oii",
+        "msg": "Di x Jr R6",
         "hora": 20,
         "minuto": 00,
         "segundo": 1, # Se quiser cravado no 00, só deixar 0.
