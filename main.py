@@ -36,7 +36,7 @@ TIMEZONE = ZoneInfo(os.getenv("BOT_TIMEZONE", "America/Sao_Paulo"))
 
 # Segurança operacional: não fica martelando para sempre.
 # 0.080 = 80 ms entre tentativas por conta.
-ATTEMPT_INTERVAL_SEC = float(os.getenv("ATTEMPT_INTERVAL_SEC", "0.040"))
+ATTEMPT_INTERVAL_SEC = float(os.getenv("ATTEMPT_INTERVAL_SEC", "0.055"))
 MAX_WINDOW_SEC = float(os.getenv("MAX_WINDOW_SEC", "80.0"))
 
 
@@ -51,28 +51,28 @@ CONTAS = [
         "secret_name": "SESSION_KAIQUE",
         "chat_id": -4999405862,
         "msg": "ok",
-        "hora": 19,
-        "minuto": 27,
-        "segundo": 1, # <--- AQUI! Você define o segundo exato do tiro.
+        "hora": 20,
+        "minuto": 00,
+        "segundo": 0, # <--- AQUI! Você define o segundo exato do tiro.
     },
     {
         "nome": "Yasmin",
         "secret_name": "SESSION_YASMIN",
-        "chat_id": -5167258471,
+        "chat_id": -1003601357589,
         "msg": "yasmin oii",
-        "hora": 19,
-        "minuto": 27,
-        "segundo": 0, # Se quiser cravado no 00, só deixar 0.
+        "hora": 20,
+        "minuto": 00,
+        "segundo": 1, # Se quiser cravado no 00, só deixar 0.
     },
-    {
-        "nome": "Steffani",
-        "secret_name": "SESSION_STEFFANI",
-        "chat_id": -5207514700,
-        "msg": "Steffani oii",
-        "hora": 19,
-        "minuto": 27,
-        "segundo": 0,
-    },
+    #{
+    #    "nome": "Steffani",
+    #    "secret_name": "SESSION_STEFFANI",
+    #    "chat_id": -5207514700,
+    #    "msg": "Steffani oii",
+    #    "hora": 19,
+    #    "minuto": 27,
+    #    "segundo": 0,
+    #},
 ]
 
 
