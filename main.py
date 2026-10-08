@@ -56,13 +56,13 @@ CONTAS = [
         "msg": "Carol x Lucas r3",
     },
 
-        #  20h45 Senha Grupo Preferencial -1003552682244
-    {
-        "nome": "Anne",
-        "secret_name": "SESSION_ANNE",
-        "chat_id": ,
-        "msg": "Anne x Felipe raio 3 cela 311",
-    },
+    #     #  20h45 Senha Grupo Preferencial -1003552682244
+    # {
+    #     "nome": "Anne",
+    #     "secret_name": "SESSION_ANNE",
+    #     "chat_id": ,
+    #     "msg": "Anne x Felipe raio 3 cela 311",
+    # },
 
 ]
 
