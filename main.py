@@ -21,12 +21,12 @@ API_HASH = os.environ.get("TELEGRAM_API_HASH")
 TZ = ZoneInfo("America/Sao_Paulo")
 
 
-HORA_ALVO = 18
-MINUTO_ALVO = 15
+HORA_ALVO = 19
+MINUTO_ALVO = 0
 SEGUNDO_ALVO = 0
 
 ANTECIPACAO_S = 0.0
-LAUNCH_INTERVAL = 0.035
+LAUNCH_INTERVAL = 0.030
 DESISTIR_APOS_S = 120
 
 
@@ -36,41 +36,33 @@ CONTAS = [
     {
         "nome": "Marcia",
         "secret_name": "SESSION_MARCIA",
-        "chat_id": -5298022565,
+        "chat_id": -1002717347777,
         "msg": "Marcia x /Ferrugem R4C3",
     },
 
-        #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
-    {
-        "nome": "Ana",
-        "secret_name": "SESSION_ANA",
-        "chat_id": -5341996442,
-        "msg": "Ana x Rene R6",
-    },
+    #     #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
+    # {
+    #     "nome": "Ana",
+    #     "secret_name": "SESSION_ANA",
+    #     "chat_id": -1003953315177,
+    #     "msg": "Ana x Rene R6",
+    # },
 
-        #  20h00 Normal lado impar -1003793823667
-    {
-        "nome": "Jessica",
-        "secret_name": "SESSION_JESSICA",
-        "chat_id": -5591056767,
-        "msg": "Jessica x Felipe raio 3 cela 311",
-    },
+    #     #  20h00 Normal lado impar -1003793823667
+    # {
+    #     "nome": "Jessica",
+    #     "secret_name": "SESSION_JESSICA",
+    #     "chat_id": -1003793823667,
+    #     "msg": "Jessica x Felipe raio 3 cela 311",
+    # },
 
-        #  20h30 Senha Grupo Normal -1003927816412
-    {
-        "nome": "Carol",
-        "secret_name": "SESSION_CAROL",
-        "chat_id": -5336863745,
-        "msg": "Carol x Lucas r3",
-    },
-
-        #  20h45 Senha Grupo Preferencial -1003552682244
-    {
-        "nome": "Anne",
-        "secret_name": "SESSION_ANNE",
-        "chat_id": -1004440363120,
-        "msg": "Anny x JB R2",
-    },
+    #     #  20h45 Senha Grupo Preferencial -1003552682244
+    # {
+    #     "nome": "Anne",
+    #     "secret_name": "SESSION_ANNE",
+    #     "chat_id": -1003552682244,
+    #     "msg": "Anny x JB R2",
+    # },
 
 ]
 
