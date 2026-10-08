@@ -1,6 +1,8 @@
 __pycache__/
 *.pyc
 venv/
+.venv/
+.vscode/
 .env
+*.session
 gerar_sessao.py
-ver_dc.py
