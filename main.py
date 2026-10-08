@@ -22,7 +22,7 @@ TZ = ZoneInfo("America/Sao_Paulo")
 
 
 HORA_ALVO = 20
-MINUTO_ALVO = 0
+MINUTO_ALVO = 45
 SEGUNDO_ALVO = 0
 
 ANTECIPACAO_S = 0.0
@@ -32,30 +32,13 @@ DESISTIR_APOS_S = 120
 
 CONTAS = [
 
-
-        #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
+        #  20h45 Senha Grupo Preferencial -1003552682244
     {
-        "nome": "Ana",
-        "secret_name": "SESSION_ANA",
-        "chat_id": -1003953315177,
-        "msg": "Ana x Rene R6",
+        "nome": "Anne",
+        "secret_name": "SESSION_ANNE",
+        "chat_id": -1003552682244,
+        "msg": "Anny x JB R2",
     },
-
-        #  20h00 Normal lado impar -1003793823667
-    {
-        "nome": "Jessica",
-        "secret_name": "SESSION_JESSICA",
-        "chat_id": -1003793823667,
-        "msg": "Jessica x Felipe raio 3 cela 311",
-    },
-
-    #     #  20h45 Senha Grupo Preferencial -1003552682244
-    # {
-    #     "nome": "Anne",
-    #     "secret_name": "SESSION_ANNE",
-    #     "chat_id": -1003552682244,
-    #     "msg": "Anny x JB R2",
-    # },
 
 ]
 
