@@ -26,7 +26,7 @@ MINUTO_ALVO = 20
 SEGUNDO_ALVO = 0
 
 ANTECIPACAO_S = 0.0
-LAUNCH_INTERVAL = 0.030
+LAUNCH_INTERVAL = 0.035
 DESISTIR_APOS_S = 120
 
 
@@ -41,13 +41,13 @@ CONTAS = [
         "msg": "Ana x Rene R6",
     },
 
-    #     #  20h00 Normal lado impar -1003793823667
-    # {
-    #     "nome": "Jessica",
-    #     "secret_name": "SESSION_JESSICA",
-    #     "chat_id": -1003793823667,
-    #     "msg": "Jessica x Felipe raio 3 cela 311",
-    # },
+        #  20h00 Normal lado impar -1003793823667
+    {
+        "nome": "Jessica",
+        "secret_name": "SESSION_JESSICA",
+        "chat_id": -1003793823667,
+        "msg": "Jessica x Felipe raio 3 cela 311",
+    },
 
     #     #  20h45 Senha Grupo Preferencial -1003552682244
     # {
