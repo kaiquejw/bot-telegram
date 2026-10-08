@@ -22,7 +22,7 @@ TZ = ZoneInfo("America/Sao_Paulo")
 
 
 HORA_ALVO = 19
-MINUTO_ALVO = 0
+MINUTO_ALVO = 20
 SEGUNDO_ALVO = 0
 
 ANTECIPACAO_S = 0.0
@@ -32,21 +32,14 @@ DESISTIR_APOS_S = 120
 
 CONTAS = [
 
-        #  19h00 GRUPO DA SENHA NORMAL- DOBRA P3 LAVINIA -1002717347777
-    {
-        "nome": "Marcia",
-        "secret_name": "SESSION_MARCIA",
-        "chat_id": -1002717347777,
-        "msg": "Marcia x /Ferrugem R4C3",
-    },
 
-    #     #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
-    # {
-    #     "nome": "Ana",
-    #     "secret_name": "SESSION_ANA",
-    #     "chat_id": -1003953315177,
-    #     "msg": "Ana x Rene R6",
-    # },
+        #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
+    {
+        "nome": "Ana",
+        "secret_name": "SESSION_ANA",
+        "chat_id": -5341996442,
+        "msg": "Ana x Rene R6",
+    },
 
     #     #  20h00 Normal lado impar -1003793823667
     # {
