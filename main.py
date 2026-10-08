@@ -21,8 +21,8 @@ API_HASH = os.environ.get("TELEGRAM_API_HASH")
 TZ = ZoneInfo("America/Sao_Paulo")
 
 
-HORA_ALVO = 21
-MINUTO_ALVO = 0
+HORA_ALVO = 13
+MINUTO_ALVO = 40
 SEGUNDO_ALVO = 0
 
 ANTECIPACAO_S = 0.0
@@ -32,44 +32,36 @@ DESISTIR_APOS_S = 120
 
 CONTAS = [
 
-        #  19h00 GRUPO NORMAL SENHA LAVINIA 2 -1003625815869
+        #  20h00 SENHA NORMAL- PARAGUAÇU PAULISTA -1003953315177
     {
-        "nome": "Jenniffer",
-        "secret_name": "SESSION_JENNIFFER",
-        "chat_id": -5093907746,
-        "msg": "Jenniffer x Wanderson 3x7",
+        "nome": "Ana",
+        "secret_name": "SESSION_ANA",
+        "chat_id": -5341996442,
+        "msg": "Ana x Rene R6",
     },
 
-        #  19h05 Grupo preferencial 19:05 horas -1004390796225
+        #  20h00 Normal lado impar -1003793823667
     {
-        "nome": "Joyce",
-        "secret_name": "SESSION_JOYCE",
-        "chat_id": -1004470155249,
-        "msg": "Maria x Ricardo R3",
+        "nome": "Jessica",
+        "secret_name": "SESSION_JESSICA",
+        "chat_id": -5591056767,
+        "msg": "Jessica x Felipe raio 3 cela 311",
     },
 
-        #  20h00 Grupo da senha BATE VOLTA Flórida Paulista -1002443737706
+        #  20h30 Senha Grupo Normal -1003927816412
     {
-        "nome": "Beatrizz",
-        "secret_name": "SESSION_BEATRIZZ",
-        "chat_id": -5401410333,
-        "msg": "Beatriz X Wilson raio 4",
+        "nome": "Carol",
+        "secret_name": "SESSION_CAROL",
+        "chat_id": -5336863745,
+        "msg": "Carol x Lucas r3",
     },
 
-        #  20h00 Grupo normal Mira 2 -1004355682842
+        #  20h45 Senha Grupo Preferencial -1003552682244
     {
-        "nome": "Luciene",
-        "secret_name": "SESSION_LUCIENE",
-        "chat_id": -5180342486,
-        "msg": "Luciene x JJ R5",
-    },
-
-        #  20h20 Grupo normal -1004315421373
-    {
-        "nome": "Juliana",
-        "secret_name": "SESSION_JULIANA",
-        "chat_id": -5108358245,
-        "msg": "Juliana/Jota/B12",
+        "nome": "Anne",
+        "secret_name": "SESSION_ANNE",
+        "chat_id": ,
+        "msg": "Anne x Felipe raio 3 cela 311",
     },
 
 ]
